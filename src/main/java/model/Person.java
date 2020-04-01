@@ -1,13 +1,23 @@
 package model;
 
+import java.io.Serializable;
+import java.util.Date;
+
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
-public class Person {
+public class Person implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,28 +35,33 @@ public class Person {
 	@Column
 	private String website;
 	
-	@Column(nullable = false)
-	private String birthdate;
+	@Basic
+	@Temporal(TemporalType.DATE)
+	@Column
+	private Date birthdate;
 	
 	@Column(nullable = false)
 	private String password;
-
+	
+	@ManyToOne
+	@JoinColumn(name = "group")
+	private Group group;
 	
 	
 	public Person() {
 		super();
 	}
 
-	public Person(Long id, String name, String firstname, String email, String website, String birthdate,
-			String password) {
+	public Person(String name, String firstname, String email, String website, Date birthdate,
+			String password, Group group) {
 		super();
-		this.id = id;
 		this.name = name;
 		this.firstname = firstname;
 		this.email = email;
 		this.website = website;
 		this.birthdate = birthdate;
 		this.password = password;
+		this.group = group;
 	}
 
 	public Long getId() {
@@ -89,11 +104,11 @@ public class Person {
 		this.website = website;
 	}
 
-	public String getBirthdate() {
+	public Date getBirthdate() {
 		return birthdate;
 	}
 
-	public void setBirthdate(String birthdate) {
+	public void setBirthdate(Date birthdate) {
 		this.birthdate = birthdate;
 	}
 
@@ -104,6 +119,13 @@ public class Person {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
+	public Group getGroup() {
+		return group;
+	}
+
+	public void setGroup(Group group) {
+		this.group = group;
+	}
 	
 }
