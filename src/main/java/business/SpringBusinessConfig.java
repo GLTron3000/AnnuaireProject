@@ -22,7 +22,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @ComponentScan(basePackageClasses = SpringBusinessConfig.class)
 @EnableTransactionManagement
-@PropertySource("classpath:config.properties")
+@PropertySource("classpath:application.properties")
 public class SpringBusinessConfig {
 	/*
      * Définition de la source de données
@@ -50,7 +50,7 @@ public class SpringBusinessConfig {
             @Autowired DataSource ds) {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(ds);
-        em.setPackagesToScan(new String[] { "springapp.business" });
+        em.setPackagesToScan(new String[] { "model" });
         em.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
         em.setBeanName("myData");
         // Configuration d'hibernate

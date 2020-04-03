@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,27 +12,33 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
+@Table(name = "AZ_PERSONS")
 public class Person implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@Basic
 	@Column(nullable = false)
 	private String name;
 	
+	@Basic
 	@Column(nullable = false)
 	private String firstname;
 	
+	@Basic
 	@Column
 	private String email;
 	
+	@Basic
 	@Column
 	private String website;
 	
@@ -40,12 +47,14 @@ public class Person implements Serializable{
 	@Column
 	private Date birthdate;
 	
+	@Basic
 	@Column(nullable = false)
 	private String password;
 	
-	@ManyToOne
-	@JoinColumn(name = "group")
-	private Group group;
+	@Basic
+	@ManyToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "w_group")
+	private Group w_group;
 	
 	
 	public Person() {
@@ -61,7 +70,7 @@ public class Person implements Serializable{
 		this.website = website;
 		this.birthdate = birthdate;
 		this.password = password;
-		this.group = group;
+		this.w_group = group;
 	}
 
 	public Long getId() {
@@ -121,11 +130,11 @@ public class Person implements Serializable{
 	}
 
 	public Group getGroup() {
-		return group;
+		return w_group;
 	}
 
 	public void setGroup(Group group) {
-		this.group = group;
+		this.w_group = group;
 	}
 	
 }

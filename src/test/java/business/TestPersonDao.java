@@ -15,7 +15,7 @@ import model.Person;
 public class TestPersonDao {
 
 	@Autowired
-	PersonDao dao;
+	IPersonDao dao;
 	
 	@Test
 	public void testAddPerson() {
