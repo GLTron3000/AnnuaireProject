@@ -25,10 +25,14 @@ public class DirectoryManager implements IDirectoryManager{
 	@Override
 	 // chercher une personne
 	public Person findPerson(User user, long personId) {
-		Person person = dao.findPerson(personId);
-		person.setBirthdate(null);
-		person.setEmail(null);
-		return person;
+		if(user.GetIsLogged())
+			return dao.findPerson(personId);
+		else {
+			Person person = dao.findPerson(personId);
+			person.setBirthdate(null);
+			person.setEmail(null);
+			return person;
+		}
 	}
 
 	@Override
@@ -40,7 +44,16 @@ public class DirectoryManager implements IDirectoryManager{
 	@Override
 	// chercher les personnes d'un groupe
 	public Collection<Person> findAllPersons(User user, long groupId) {
-		return dao.findAllPersons(groupId);
+		if(user.GetIsLogged())
+			return dao.findAllPersons(groupId);
+		else {
+			Collection<Person> persons = dao.findAllPersons(groupId);
+			for(Person person : persons) {
+				person.setBirthdate(null);
+				person.setEmail(null);
+			}
+			return persons;
+		}
 	}
 	
 	@Override
@@ -51,7 +64,8 @@ public class DirectoryManager implements IDirectoryManager{
 	@Override
 	// identifier un utilisateur
 	public boolean login(User user, long personId, String password) {
-		
+		user.setIsLogged(true);
+		//TODO//
 		return false;
 	}
 
@@ -59,6 +73,7 @@ public class DirectoryManager implements IDirectoryManager{
 	// oublier l'utilisateur
 	public void logout(User user) {
 		user.setPerson(null);
+		user.setIsLogged(false);
 	}
 
 	@Override
