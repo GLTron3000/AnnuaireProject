@@ -1,10 +1,11 @@
-package business;
+package mybootapp.business;
 
 import java.util.Collection;
 
-import model.Group;
-import model.Person;
-import model.User;
+import mybootapp.model.Group;
+import mybootapp.model.Person;
+import mybootapp.model.User;
+
 
 public interface IDirectoryManager {
 	
@@ -20,6 +21,9 @@ public interface IDirectoryManager {
     // chercher les personnes d'un groupe
     Collection<Person> findAllPersons(User user, long groupId);
 
+    // chercher tous les groupes
+    Collection<Group> findAllGroup(User user);
+    
     // identifier un utilisateur
     boolean login(User user, long personId, String password);
 

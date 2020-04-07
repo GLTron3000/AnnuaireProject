@@ -1,9 +1,10 @@
-package business;
+package mybootapp.business;
 
 import java.util.Collection;
 
-import model.Group;
-import model.Person;
+import mybootapp.model.Group;
+import mybootapp.model.Person;
+
 
 public interface IPersonDao {
 	
@@ -15,4 +16,5 @@ public interface IPersonDao {
 	void addGroup(Group g);
 	void removeGroup(long id);
 	Collection<Group> findAllGroups();
+	Group findGroup(long id);
 }

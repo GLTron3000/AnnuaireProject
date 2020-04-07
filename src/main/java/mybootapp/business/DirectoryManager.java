@@ -1,26 +1,19 @@
-package business;
+package mybootapp.business;
 
 import java.util.Collection;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Service;
 
-import model.Group;
-import model.Person;
-import model.User;
+import mybootapp.model.Group;
+import mybootapp.model.Person;
+import mybootapp.model.User;
 
-@Repository
-@Transactional
+@Service("directoryManager")
 public class DirectoryManager implements IDirectoryManager{
 	
 	@Autowired
-    @PersistenceContext(unitName = "myData")
-    EntityManager em;
+    IPersonDao dao;
 
 	@Override
 	// créer un utilisateur anonyme
@@ -32,7 +25,7 @@ public class DirectoryManager implements IDirectoryManager{
 	@Override
 	 // chercher une personne
 	public Person findPerson(User user, long personId) {
-		Person person = em.find(Person.class,personId);
+		Person person = dao.findPerson(personId);
 		person.setBirthdate(null);
 		person.setEmail(null);
 		return person;
@@ -41,16 +34,18 @@ public class DirectoryManager implements IDirectoryManager{
 	@Override
 	// chercher un groupe
 	public Group findGroup(User user, long groupId) {
-		return em.find(Group.class, groupId);
+		return dao.findGroup(groupId);
 	}
 
 	@Override
 	// chercher les personnes d'un groupe
 	public Collection<Person> findAllPersons(User user, long groupId) {
-		String query = "SELECT p.name, p.firstname, p.website,  FROM Person p WHERE group.id = :group";
-		TypedQuery<Person> q = em.createQuery(query, Person.class);
-		q.setParameter(0, groupId);
-		return q.getResultList();
+		return dao.findAllPersons(groupId);
+	}
+	
+	@Override
+	public Collection<Group> findAllGroup(User user) {
+		return dao.findAllGroups();
 	}
 
 	@Override
@@ -69,8 +64,7 @@ public class DirectoryManager implements IDirectoryManager{
 	@Override
 	// enregistrer une personne
 	public void savePerson(User user, Person p) {
-		user.setPerson(p);
+		dao.addPerson(p);
 	}
-	
 
 }

@@ -1,4 +1,4 @@
-package business;
+package mybootapp.business;
 
 import java.util.Collection;
 
@@ -8,13 +8,11 @@ import javax.persistence.TypedQuery;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import model.Group;
-import model.Person;
+import mybootapp.model.Group;
+import mybootapp.model.Person;
 
-@Service
 @Repository
 @Transactional
 public class PersonDao implements IPersonDao {
@@ -22,7 +20,7 @@ public class PersonDao implements IPersonDao {
 	@Autowired
     @PersistenceContext(unitName = "myData")
     EntityManager em;
-
+	    
 	@Override
 	public Collection<Group> findAllGroups() {
 		String query = "SELECT g FROM Group g";
@@ -65,6 +63,11 @@ public class PersonDao implements IPersonDao {
 	public void removeGroup(long id) {
 		Group g = em.find(Group.class, id);
 		em.remove(g);
+	}
+	
+	@Override
+	public Group findGroup(long id) {
+		return em.find(Group.class, id);
 	}
 
 }

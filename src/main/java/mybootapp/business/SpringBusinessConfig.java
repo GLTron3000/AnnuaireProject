@@ -1,4 +1,4 @@
-package business;
+package mybootapp.business;
 
 import java.util.Properties;
 
@@ -31,7 +31,7 @@ public class SpringBusinessConfig {
     public DataSource dataSource(//
             @Value("${datasource.driverName}") String driverName, //
             @Value("${datasource.url}") String url, //
-            @Value("${datasource.user}") String user, //
+            @Value("${datasource.username}") String user, //
             @Value("${datasource.password}") String password) {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(driverName);
@@ -50,7 +50,7 @@ public class SpringBusinessConfig {
             @Autowired DataSource ds) {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(ds);
-        em.setPackagesToScan(new String[] { "model" });
+        em.setPackagesToScan(new String[] { "mybootapp.model" });
         em.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
         em.setBeanName("myData");
         // Configuration d'hibernate
