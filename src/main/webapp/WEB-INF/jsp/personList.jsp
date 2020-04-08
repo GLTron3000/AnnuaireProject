@@ -16,11 +16,11 @@
         <div class="hero-head">
             <%@ include file="/WEB-INF/jsp/navbar.jsp"%>
         </div>
+        
  		<div class="hero-body">
         	<div class="container">
 				<h1 class="title is-1">Personnes:</h1>
-			<c:forEach items="${groups}" var="group">
-				<c:forEach items="${group.getPersons()}" var="person">
+				<c:forEach items="${persons}" var="person">
 					<div class="card">
 	                  <a href="${view}?id=${person.getId()}">
 	                    <div class="card-content">
@@ -30,9 +30,34 @@
 	                  </a>
 	              </div>
 				</c:forEach>
-			</c:forEach>        
+				<hr>
+				<nav class="pagination is-centered" role="navigation" aria-label="pagination">
+				  <a href="${view}?page=${param.page == null ? 0 : param.page-1}" class="pagination-previous">Précédent</a>
+				  <a href="${view}?page=${param.page == null ? 1 : param.page+1}" class="pagination-next">Suivant</a>
+				  
+				  <ul class="pagination-list">
+				    <li>
+				      <span class="pagination-ellipsis">&hellip;</span>
+				    </li>
+				    <li>
+				      <a class="pagination-link">${param.page == null ? 0 : param.page-1}</a>
+				    </li>
+				    <li>
+				      <a class="pagination-link is-current" aria-label="Page 46" aria-current="page">${param.page == null ? 0 : param.page}</a>
+				    </li>
+				    <li>
+				      <a class="pagination-link">${param.page == null ? 1 : param.page+1}</a>
+				    </li>
+				    <li>
+				      <span class="pagination-ellipsis">&hellip;</span>
+				    </li>
+				  </ul>
+				  			  
+				</nav>
           	</div>
+          	
         </div>
+        
     </section>
 </body>
 </html>

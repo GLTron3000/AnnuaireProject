@@ -20,7 +20,7 @@ public class PersonDao implements IPersonDao {
 	@Autowired
     @PersistenceContext(unitName = "myData")
     EntityManager em;
-	    
+		    
 	@Override
 	public Collection<Group> findAllGroups() {
 		String query = "SELECT g FROM Group g";

@@ -22,7 +22,7 @@
     <div class="navbar-end">
        <div class="navbar-item">
          <div class="buttons">
-           <a class="button is-light" href="/login">Se connecter</a>
+           <a class="button is-light" href="/log">Se connecter</a>
          </div>
        </div>
      </div>

@@ -21,7 +21,7 @@
                        <p class="title"><c:out value="${person.getName()}" /> <c:out value="${person.getFirstname()}" /></p>
                        <p class="subtitle"><c:out value="${person.getGroup().getName()}" /></p>
                        <hr>
-                       <p class="subtitle"><c:out value="${person.getBirthdate()}" /></p>
+                       <p class="subtitle"><fmt:formatDate pattern = "dd-MM-yyyy" value = "${person.getBirthdate()}" /></p>
                        <p class="subtitle"><c:out value="${person.getEmail()}" /></p>
                        <p class="subtitle"><c:out value="${person.getWebsite()}" /></p>
                    </div>
