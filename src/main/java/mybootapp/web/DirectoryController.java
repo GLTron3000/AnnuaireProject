@@ -93,6 +93,13 @@ public class DirectoryController {
 		}
 	}
 	
+	@RequestMapping("groups/find")
+	public ModelAndView showGroupsFind(HttpSession session, String name) {
+		User user = getUser(session);
+		final var result = manager.findGroupsByName(user, name);
+		return new ModelAndView("groupList", "groups", result);
+	}
+	
 	@RequestMapping(value = "log", method = RequestMethod.GET)
 	public ModelAndView loginOrOut(HttpSession session) {
 		User user = getUser(session);

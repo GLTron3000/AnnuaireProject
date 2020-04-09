@@ -17,4 +17,8 @@ public interface IPersonDao {
 	void removeGroup(long id);
 	Collection<Group> findAllGroups();
 	Group findGroup(long id);
+	
+	Collection<Group> findGroupsByName(String name);
+	Collection<Person> findPersonsByName(String name);
+	
 }

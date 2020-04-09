@@ -27,12 +27,30 @@ public class PersonDao implements IPersonDao {
 		TypedQuery<Group> q = em.createQuery(query, Group.class);
 		return q.getResultList();
 	}
+	
+	@Override
+	public Collection<Group> findGroupsByName(String name) {
+		String nameParam = name;
+		String query = "SELECT g FROM Group g WHERE g.name LIKE '%?1%'";
+		TypedQuery<Group> q = em.createQuery(query, Group.class);
+		q.setParameter(1, nameParam);
+		return q.getResultList();
+	}
 
 	@Override
 	public Collection<Person> findAllPersons(long groupId) {
 		String query = "SELECT p FROM Person p WHERE group.id = :group";
 		TypedQuery<Person> q = em.createQuery(query, Person.class);
 		q.setParameter(0, groupId);
+		return q.getResultList();
+	}
+	
+	@Override
+	public Collection<Person> findPersonsByName(String name) {
+		String nameParam=name;
+		String query = "SELECT p FROM Person p WHERE p.name LIKE '%?1%'";
+		TypedQuery<Person> q = em.createQuery(query, Person.class);
+		q.setParameter(1, nameParam);
 		return q.getResultList();
 	}
 
@@ -69,5 +87,4 @@ public class PersonDao implements IPersonDao {
 	public Group findGroup(long id) {
 		return em.find(Group.class, id);
 	}
-
 }

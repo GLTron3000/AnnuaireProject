@@ -57,8 +57,27 @@ public class DirectoryManager implements IDirectoryManager{
 	}
 	
 	@Override
+	public Collection<Person> findPersonsByName(User user, String name) {
+		if(user.GetIsLogged())
+			return dao.findPersonsByName(name);
+		else {
+			Collection<Person> persons = dao.findPersonsByName(name);
+			for(Person person : persons) {
+				person.setBirthdate(null);
+				person.setEmail(null);
+			}
+			return persons;
+		}
+	}
+	
+	@Override
 	public Collection<Group> findAllGroup(User user) {
 		return dao.findAllGroups();
+	}
+	
+	@Override
+	public Collection<Group> findGroupsByName(User user, String name) {
+		return dao.findGroupsByName(name);
 	}
 
 	@Override
@@ -81,5 +100,4 @@ public class DirectoryManager implements IDirectoryManager{
 	public void savePerson(User user, Person p) {
 		dao.addPerson(p);
 	}
-
 }
