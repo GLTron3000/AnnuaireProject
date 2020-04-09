@@ -41,6 +41,9 @@
                           <p class="control">
                             <button class="button is-info">Se connecter</button>
                           </p>
+                          <p class="control">
+                            <button class="button is-info">Créer un compte</button>
+                          </p>
                       </div>
                   </form>
                 </div>

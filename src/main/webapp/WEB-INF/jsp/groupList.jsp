@@ -18,10 +18,10 @@
             <%@ include file="/WEB-INF/jsp/navbar.jsp"%>
         </div>
         <div class="container has-text-centered">
-	        <form action="${findCourses}" style='display:inline-block;'>
+	        <form action="${findGroup}">
 	                <div class="field has-addons">
 	                    <div class="control is-expanded">
-	                      <input class="input" type="text" placeholder="Trouver un groupe" size="20">
+	                      <input class="input" type="text" placeholder="Rechercher un groupe..." size="20">
 	                    </div>
 	                    <div class="control">
 	                      <button class="button is-info">Recherche</button>

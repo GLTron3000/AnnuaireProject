@@ -66,6 +66,19 @@ public class DirectoryController {
 		}
 	}
 	
+	@RequestMapping("profiles/find")
+	public ModelAndView showProfilesFind(HttpSession session, String name) {
+		User user = getUser(session);
+		final var result = manager.findPersonsByName(user, name);
+		return new ModelAndView("personList", "persons", result);
+		/*if(user.GetIsLogged()) {
+			
+		}else {
+			
+		}*/
+		//return null;
+	}
+	
 	@RequestMapping("groups")
 	public ModelAndView showGroups(HttpSession session, @RequestParam(required = false) Optional<Integer> id, @RequestParam(required = false) Optional<Integer> page) {
 		User user = getUser(session);
@@ -93,7 +106,7 @@ public class DirectoryController {
 		}
 	}
 	
-	@RequestMapping("groups/find")
+	@RequestMapping("/groups/find")
 	public ModelAndView showGroupsFind(HttpSession session, String name) {
 		User user = getUser(session);
 		final var result = manager.findGroupsByName(user, name);

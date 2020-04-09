@@ -5,6 +5,7 @@
 <%@ include file="/WEB-INF/jsp/include.jsp"%>
 
 <c:url var="view" value="/profiles" />
+<c:url var="findPerson" value="/profiles/find" />
 
 <html>
 <head>
@@ -16,6 +17,19 @@
         <div class="hero-head">
             <%@ include file="/WEB-INF/jsp/navbar.jsp"%>
         </div>
+        
+         <div class="container has-text-centered">
+	        <form action="${findPerson}">
+	                <div class="field has-addons">
+	                    <div class="control is-expanded">
+	                      <input class="input" type="text" placeholder="Rechercher une personne..." size="20">
+	                    </div>
+	                    <div class="control">
+	                      <button class="button is-info">Recherche</button>
+	                    </div>
+	                </div>
+	            </form>
+	    </div>
         
  		<div class="hero-body">
         	<div class="container">

@@ -1,6 +1,8 @@
 package mybootapp.business;
 
 import java.util.Collection;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -20,6 +22,7 @@ public class PersonDao implements IPersonDao {
 	@Autowired
     @PersistenceContext(unitName = "myData")
     EntityManager em;
+	
 		    
 	@Override
 	public Collection<Group> findAllGroups() {
@@ -30,10 +33,9 @@ public class PersonDao implements IPersonDao {
 	
 	@Override
 	public Collection<Group> findGroupsByName(String name) {
-		String nameParam = name;
-		String query = "SELECT g FROM Group g WHERE g.name LIKE '%?1%'";
+		String query = "SELECT g FROM Group g WHERE g.name LIKE :name";
 		TypedQuery<Group> q = em.createQuery(query, Group.class);
-		q.setParameter(1, nameParam);
+		q.setParameter("name", "%"+name+"%");
 		return q.getResultList();
 	}
 
@@ -47,10 +49,9 @@ public class PersonDao implements IPersonDao {
 	
 	@Override
 	public Collection<Person> findPersonsByName(String name) {
-		String nameParam=name;
-		String query = "SELECT p FROM Person p WHERE p.name LIKE '%?1%'";
+		String query = "SELECT p FROM Person p WHERE p.name LIKE :name OR p.firstname LIKE :name";
 		TypedQuery<Person> q = em.createQuery(query, Person.class);
-		q.setParameter(1, nameParam);
+		q.setParameter("name", "%"+name+"%");
 		return q.getResultList();
 	}
 
