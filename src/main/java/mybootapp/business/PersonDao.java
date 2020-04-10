@@ -1,8 +1,6 @@
 package mybootapp.business;
 
 import java.util.Collection;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -53,6 +51,14 @@ public class PersonDao implements IPersonDao {
 		TypedQuery<Person> q = em.createQuery(query, Person.class);
 		q.setParameter("name", "%"+name+"%");
 		return q.getResultList();
+	}
+	
+	@Override
+	public Person findPersonByEmail(String email) {
+		String query = "SELECT p FROM Person p WHERE p.email = : email";
+		TypedQuery<Person> q = em.createQuery(query, Person.class);
+		q.setParameter("email", email);
+		return q.getSingleResult();
 	}
 
 	@Override

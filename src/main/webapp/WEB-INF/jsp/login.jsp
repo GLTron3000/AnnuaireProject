@@ -20,10 +20,10 @@
           <h1 class="title is-1">Login</h1>
             <div class="columns is-centered">
                 <div class="column is-one-quarter">
-                  <form action="">
+                  <form action="/log" method="POST">
                       <div class="field">
                           <p class="control has-icons-left has-icons-right">
-                            <input class="input" type="email" placeholder="Email">
+                            <input class="input" type="email" placeholder="Email" name="email">
                             <span class="icon is-small is-left">
                               <i class="fas fa-envelope"></i>
                             </span>
@@ -31,7 +31,7 @@
                         </div>
                         <div class="field">
                           <p class="control has-icons-left">
-                            <input class="input" type="password" placeholder="Mot de passe">
+                            <input class="input" type="password" placeholder="Mot de passe" name="password">
                             <span class="icon is-small is-left">
                               <i class="fas fa-lock"></i>
                             </span>

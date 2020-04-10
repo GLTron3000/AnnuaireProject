@@ -49,6 +49,8 @@ public class RandomNameFiller {
 			dao.addPerson(p);
 			nbOfNames--;
 		}
+		
+		addAdmin();
 	}
 	
 	private String getRandom(String[] array) {
@@ -60,4 +62,15 @@ public class RandomNameFiller {
 		return new Date(ThreadLocalRandom.current().nextInt() * 1000L);
 	}
 
+	private void addAdmin() {
+		Person p = new Person();
+		p.setFirstname("admin");
+		p.setName("admin");
+		p.setBirthdate(getRandomDate());
+		p.setEmail("admin@admin.admin");
+		p.setGroup(new Group("admins"));
+		p.setPassword("1234");
+		
+		dao.addPerson(p);
+	}
 }

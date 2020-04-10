@@ -82,10 +82,21 @@ public class DirectoryManager implements IDirectoryManager{
 
 	@Override
 	// identifier un utilisateur
-	public boolean login(User user, long personId, String password) {
+	public boolean login(User user, String email, String password) {
+		Person p = dao.findPersonByEmail(email);
+		
+		System.err.println("[MANAGER] login p:"+p);
+		
+		if(p == null) return false;
+		
+		System.err.println("[MANAGER] "+p.getPassword()+" vs "+password);
+		if(!p.getPassword().equals(password)) return false;
+		
+		System.err.println("[MANAGER] user is logged in");
 		user.setIsLogged(true);
-		//TODO//
-		return false;
+		user.setPerson(p);
+		
+		return true;
 	}
 
 	@Override
@@ -98,6 +109,6 @@ public class DirectoryManager implements IDirectoryManager{
 	@Override
 	// enregistrer une personne
 	public void savePerson(User user, Person p) {
-		dao.addPerson(p);
+		if(p.getId() == user.getPerson().getId()) dao.addPerson(p);
 	}
 }

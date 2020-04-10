@@ -19,7 +19,7 @@ public interface IDirectoryManager{
     
     // chercher les personnes d'un groupe
     Collection<Person> findAllPersons(User user, long groupId);
-    
+       
     // chercher les personnes par le param name
     Collection<Person> findPersonsByName(User user, String name);
 
@@ -30,7 +30,7 @@ public interface IDirectoryManager{
     Collection<Group> findGroupsByName(User user, String name);
     
     // identifier un utilisateur
-    boolean login(User user, long personId, String password);
+    boolean login(User user, String email, String password);
 
     // oublier l'utilisateur
     void logout(User user);

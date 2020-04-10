@@ -5,9 +5,12 @@ import java.util.Collection;
 import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,7 +39,7 @@ public class DirectoryController {
 		
 		if(id.isPresent()) {
 			Person person = manager.findPerson(user, id.get());
-			System.err.println("PROFILE "+person.getBirthdate()+person.getEmail());
+			System.err.println("[CONTROLER] profile infos b:"+person.getBirthdate()+" e:"+person.getEmail());
 			return new ModelAndView("person", "person", person);
 		} else {
 			int part = 0;
@@ -60,14 +63,13 @@ public class DirectoryController {
 			for(int i = part*pageSize; i < part*pageSize+pageSize && i < persons.size(); i++) {
 				filteredPersons.add((Person) persons.toArray()[i]);
 			}
-					
-			System.err.println("GENERATED "+filteredPersons.size());
+
 			return new ModelAndView("personList", "persons", filteredPersons);
 		}
 	}
 	
 	@RequestMapping("profiles/find")
-	public ModelAndView showProfilesFind(HttpSession session, String name) {
+	public ModelAndView showProfilesFind(HttpSession session, @RequestParam("name")String name) {
 		User user = getUser(session);
 		final var result = manager.findPersonsByName(user, name);
 		return new ModelAndView("personList", "persons", result);
@@ -77,6 +79,26 @@ public class DirectoryController {
 			
 		}*/
 		//return null;
+	}
+	
+	@RequestMapping(value = "profiles/edit", method = RequestMethod.GET)
+	public ModelAndView editProfile(HttpSession session, @RequestParam int id) {
+		User user = getUser(session);
+		
+		if(!user.GetIsLogged()) return new ModelAndView("index");
+		if(user.getPerson() == null) return new ModelAndView("index");
+				
+		return new ModelAndView("editProfile", "person", user.getPerson());
+	}
+	
+	@RequestMapping(value = "profiles/edit", method = RequestMethod.POST)
+	public ModelAndView saveProfile(HttpSession session, @ModelAttribute @Valid Person p, BindingResult result) {
+		User user = getUser(session);
+		
+		if(!user.GetIsLogged()) return new ModelAndView("index");
+		if(user.getPerson() == null) return new ModelAndView("index");
+		
+		return new ModelAndView("editProfile", "person", user.getPerson());
 	}
 	
 	@RequestMapping("groups")
@@ -107,17 +129,14 @@ public class DirectoryController {
 	}
 	
 	@RequestMapping("/groups/find")
-	public ModelAndView showGroupsFind(HttpSession session, String name) {
+	public ModelAndView showGroupsFind(HttpSession session, @RequestParam("name")String name) {
 		User user = getUser(session);
 		final var result = manager.findGroupsByName(user, name);
 		return new ModelAndView("groupList", "groups", result);
 	}
 	
 	@RequestMapping(value = "log", method = RequestMethod.GET)
-	public ModelAndView loginOrOut(HttpSession session) {
-		User user = getUser(session);
-		if(user.GetIsLogged()) user.setIsLogged(false);
-		
+	public ModelAndView login(HttpSession session) {	
 		return new ModelAndView("login");
 	}
 	
@@ -125,23 +144,36 @@ public class DirectoryController {
 	public ModelAndView doLogin(HttpSession session, @RequestParam("email")String email, @RequestParam("password")String password) {
 		User user = getUser(session);
 		
-		//FIND USER BY EMAIL
-		long userID;
-	
-		if(manager.login(user, 0, password)) {
+		System.err.println("[CONTROLER] login e:"+email+" p:"+password);
+		
+		if(manager.login(user, email, password)) {
+			session.setAttribute("user", user);
 			return new ModelAndView("index");
-		} else {
+		}
+		else {
 			return new ModelAndView("login");
 		}
 	}
 	
+	@RequestMapping("logout")
+	public ModelAndView logout(HttpSession session) {
+		User user = getUser(session);
+		manager.logout(user);
+		session.setAttribute("user", user);
+		return new ModelAndView("login");
+	}
+		
 	private User getUser(HttpSession session) {
 		User user;
     	if(session.getAttribute("user") == null) {
+    		System.err.println("[CONTROLER] new user session ");
     		user = new User();
     		session.setAttribute("user", user);
     	}
-    	else user = (User) session.getAttribute("user");
+    	else {
+    		user = (User) session.getAttribute("user");
+    		System.err.println("[CONTROLER] get existing session | logged in:"+user.GetIsLogged()+" | p:"+user.getPerson());
+    	}
     	return user;
 	}
 	

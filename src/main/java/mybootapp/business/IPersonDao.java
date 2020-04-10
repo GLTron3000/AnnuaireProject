@@ -12,6 +12,7 @@ public interface IPersonDao {
 	void removePerson(long id);
 	Collection<Person> findAllPersons(long groupId);
 	Person findPerson(long id);
+	Person findPersonByEmail(String email);
 
 	void addGroup(Group g);
 	void removeGroup(long id);

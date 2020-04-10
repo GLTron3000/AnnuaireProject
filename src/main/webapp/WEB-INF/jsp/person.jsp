@@ -24,6 +24,11 @@
                        <p class="subtitle"><fmt:formatDate pattern = "dd-MM-yyyy" value = "${person.getBirthdate()}" /></p>
                        <p class="subtitle"><c:out value="${person.getEmail()}" /></p>
                        <p class="subtitle"><c:out value="${person.getWebsite()}" /></p>
+                       
+                       <c:if test="${sessionScope.user.getPerson().getId().equals(person.getId())}">
+                       	<a class="button is-warning" href="/profiles/edit?id=${sessionScope.user.getPerson().getId()}">Editer le profile</a>
+                       </c:if>
+                       
                    </div>
               </div>    
           	</div>

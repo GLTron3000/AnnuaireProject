@@ -54,7 +54,7 @@ public class Person implements Serializable{
 	@Basic
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "w_group")
-	private Group w_group;
+	private Group group;
 	
 	
 	public Person() {
@@ -70,7 +70,7 @@ public class Person implements Serializable{
 		this.website = website;
 		this.birthdate = birthdate;
 		this.password = password;
-		this.w_group = group;
+		this.group = group;
 	}
 
 	public Long getId() {
@@ -130,11 +130,11 @@ public class Person implements Serializable{
 	}
 
 	public Group getGroup() {
-		return w_group;
+		return group;
 	}
 
 	public void setGroup(Group group) {
-		this.w_group = group;
+		this.group = group;
 	}
 	
 }

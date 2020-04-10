@@ -29,7 +29,7 @@ public class Group implements Serializable {
 	private String name;
 	
 	@Basic
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "w_group")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "group")
 	private Set<Person> persons;
 
 	public Group() {
