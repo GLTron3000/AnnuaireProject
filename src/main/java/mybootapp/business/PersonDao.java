@@ -4,9 +4,11 @@ import java.util.Collection;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -94,4 +96,11 @@ public class PersonDao implements IPersonDao {
 	public Group findGroup(long id) {
 		return em.find(Group.class, id);
 	}
+	
+	@Override
+	@Modifying
+	public void updatePerson(Person person){
+		em.merge(person);
+	}
+	
 }

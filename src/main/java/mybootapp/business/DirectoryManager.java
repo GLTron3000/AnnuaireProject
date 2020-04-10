@@ -111,4 +111,11 @@ public class DirectoryManager implements IDirectoryManager{
 	public void savePerson(User user, Person p) {
 		if(p.getId() == user.getPerson().getId()) dao.addPerson(p);
 	}
+	
+	@Override
+	public void updatePerson(User user, Person upDatedPerson) {
+		if(upDatedPerson.getId() == user.getPerson().getId()) {
+			dao.updatePerson(upDatedPerson);
+		}
+	}
 }

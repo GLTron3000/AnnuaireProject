@@ -6,7 +6,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <c:url var="view" value="/groups" />
-<c:url var="findGroups" value="/groups/find" />
 
 <html>
 <head>

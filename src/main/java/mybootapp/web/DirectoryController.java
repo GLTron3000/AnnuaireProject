@@ -73,12 +73,6 @@ public class DirectoryController {
 		User user = getUser(session);
 		final var result = manager.findPersonsByName(user, name);
 		return new ModelAndView("personList", "persons", result);
-		/*if(user.GetIsLogged()) {
-			
-		}else {
-			
-		}*/
-		//return null;
 	}
 	
 	@RequestMapping(value = "profiles/edit", method = RequestMethod.GET)
@@ -97,6 +91,8 @@ public class DirectoryController {
 		
 		if(!user.GetIsLogged()) return new ModelAndView("index");
 		if(user.getPerson() == null) return new ModelAndView("index");
+		
+		manager.updatePerson(user, p);
 		
 		return new ModelAndView("editProfile", "person", user.getPerson());
 	}

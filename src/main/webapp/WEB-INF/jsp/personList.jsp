@@ -6,6 +6,8 @@
 
 <c:url var="view" value="/profiles" />
 <c:url var="findPerson" value="/profiles/find" />
+<c:url var="edit" value="/groups/edit" />
+
 
 <html>
 <head>

@@ -37,5 +37,8 @@ public interface IDirectoryManager{
 
     // enregistrer une personne
     void savePerson(User user, Person p);
+    
+    // enregistre les modifs d'une personne
+    void updatePerson(User user, Person upDatedPerson);
 
 }

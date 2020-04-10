@@ -16,6 +16,7 @@ public interface IPersonDao {
 
 	void addGroup(Group g);
 	void removeGroup(long id);
+	void updatePerson(Person person);
 	Collection<Group> findAllGroups();
 	Group findGroup(long id);
 	
