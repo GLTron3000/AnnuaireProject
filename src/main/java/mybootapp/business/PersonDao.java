@@ -25,22 +25,29 @@ public class PersonDao implements IPersonDao {
 		    
 	@Override
 	public Collection<Group> findAllGroups() {
-		String query = "SELECT g FROM Group g";
+		String query = "SELECT g FROM Group g ORDER BY name ASC";
 		TypedQuery<Group> q = em.createQuery(query, Group.class);
 		return q.getResultList();
 	}
 	
 	@Override
 	public Collection<Group> findGroupsByName(String name) {
-		String query = "SELECT g FROM Group g WHERE g.name LIKE :name";
+		String query = "SELECT g FROM Group g WHERE g.name LIKE :name ORDER BY name ASC";
 		TypedQuery<Group> q = em.createQuery(query, Group.class);
 		q.setParameter("name", "%"+name+"%");
 		return q.getResultList();
 	}
 
 	@Override
-	public Collection<Person> findAllPersons(long groupId) {
-		String query = "SELECT p FROM Person p WHERE group.id = :group";
+	public Collection<Person> findAllPersons() {
+		String query = "SELECT p FROM Person p ORDER BY name ASC";
+		TypedQuery<Person> q = em.createQuery(query, Person.class);
+		return q.getResultList();
+	}
+	
+	@Override
+	public Collection<Person> findAllPersonsByGroup(long groupId) {
+		String query = "SELECT p FROM Person p WHERE group.id = :group ORDER BY name ASC";
 		TypedQuery<Person> q = em.createQuery(query, Person.class);
 		q.setParameter(0, groupId);
 		return q.getResultList();
@@ -48,7 +55,7 @@ public class PersonDao implements IPersonDao {
 	
 	@Override
 	public Collection<Person> findPersonsByName(String name) {
-		String query = "SELECT p FROM Person p WHERE p.name LIKE :name OR p.firstname LIKE :name";
+		String query = "SELECT p FROM Person p WHERE p.name LIKE :name OR p.firstname LIKE :name ORDER BY name ASC";
 		TypedQuery<Person> q = em.createQuery(query, Person.class);
 		q.setParameter("name", "%"+name+"%");
 		return q.getResultList();

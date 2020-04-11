@@ -43,11 +43,26 @@ public class DirectoryManager implements IDirectoryManager{
 
 	@Override
 	// chercher les personnes d'un groupe
-	public Collection<Person> findAllPersons(User user, long groupId) {
+	public Collection<Person> findAllPersons(User user) {
 		if(user.GetIsLogged())
-			return dao.findAllPersons(groupId);
+			return dao.findAllPersons();
 		else {
-			Collection<Person> persons = dao.findAllPersons(groupId);
+			Collection<Person> persons = dao.findAllPersons();
+			for(Person person : persons) {
+				person.setBirthdate(null);
+				person.setEmail(null);
+			}
+			return persons;
+		}
+	}
+	
+	@Override
+	// chercher les personnes d'un groupe
+	public Collection<Person> findAllPersonsByGroup(User user, long groupId) {
+		if(user.GetIsLogged())
+			return dao.findAllPersonsByGroup(groupId);
+		else {
+			Collection<Person> persons = dao.findAllPersonsByGroup(groupId);
 			for(Person person : persons) {
 				person.setBirthdate(null);
 				person.setEmail(null);

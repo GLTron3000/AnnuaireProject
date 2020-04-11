@@ -41,11 +41,10 @@
                           <p class="control">
                             <button class="button is-info">Se connecter</button>
                           </p>
-                          <p class="control">
-                            <button class="button is-info">Créer un compte</button>
-                          </p>
                       </div>
                   </form>
+                  <hr>
+                  <button class="button is-light">Créer un compte</button>
                 </div>
             </div>
           </div>

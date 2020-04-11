@@ -40,35 +40,15 @@
 					<div class="card">
 	                  <a href="${view}?id=${person.getId()}">
 	                    <div class="card-content">
-	                        <p class="title"><c:out value="${person.getName()}" /> <c:out value="${person.getFirstname()}" /></p>
-	                        <p class="subtitle"><c:out value="${group.getName()}" /></p>
+	                        <p class="title is-5"><c:out value="${person.getName()}" /> <c:out value="${person.getFirstname()}" /> | <c:out value="${person.getGroup().getName()}" /></p>
 	                    </div>
 	                  </a>
 	              </div>
 				</c:forEach>
 				<hr>
 				<nav class="pagination is-centered" role="navigation" aria-label="pagination">
-				  <a href="${view}?page=${param.page == null ? 0 : param.page-1}" class="pagination-previous">Précédent</a>
-				  <a href="${view}?page=${param.page == null ? 1 : param.page+1}" class="pagination-next">Suivant</a>
-				  
-				  <ul class="pagination-list">
-				    <li>
-				      <span class="pagination-ellipsis">&hellip;</span>
-				    </li>
-				    <li>
-				      <a class="pagination-link">${param.page == null ? 0 : param.page-1}</a>
-				    </li>
-				    <li>
-				      <a class="pagination-link is-current" aria-label="Page 46" aria-current="page">${param.page == null ? 0 : param.page}</a>
-				    </li>
-				    <li>
-				      <a class="pagination-link">${param.page == null ? 1 : param.page+1}</a>
-				    </li>
-				    <li>
-				      <span class="pagination-ellipsis">&hellip;</span>
-				    </li>
-				  </ul>
-				  			  
+				  <a href="${view}?page=${param.page == null || param.page == 0 ? 0 : param.page-1}" class="pagination-previous">Précédent</a>
+				  <a href="${view}?page=${param.page == null ? 1 : param.page+1}" class="pagination-next">Suivant</a>		  			  
 				</nav>
           	</div>
           	

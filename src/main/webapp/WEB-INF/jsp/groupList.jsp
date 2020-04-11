@@ -37,7 +37,7 @@
 				<div class="card">
                   <a href="${view}?id=${group.getId()}">
                     <div class="card-content">
-                        <p class="title"><c:out value="${group.getName()}" /></p>
+                        <p class="title is-5"><c:out value="${group.getName()}" /></p>
                     </div>
                   </a>
               </div>

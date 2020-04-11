@@ -27,7 +27,7 @@ public class RandomNameFiller {
 	
 	@EventListener(ContextRefreshedEvent.class)
     public void onApplicationEvent(ContextRefreshedEvent event) {
-		event.getApplicationContext().getBean(RandomNameFiller.class).fillDB(100);
+		event.getApplicationContext().getBean(RandomNameFiller.class).fillDB(100000);
 	}
 	
 	@Transactional
@@ -84,6 +84,7 @@ public class RandomNameFiller {
 		p.setName("admin");
 		p.setBirthdate(getRandomDate());
 		p.setEmail("admin@admin.admin");
+		p.setWebsite("boobook.fr");
 		p.setGroup(new Group("admins"));
 		p.setPassword("1234");
 		

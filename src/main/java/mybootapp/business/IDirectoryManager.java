@@ -17,8 +17,11 @@ public interface IDirectoryManager{
     // chercher un groupe
     Group findGroup(User user, long groupId);
     
+    // chercher toutes personnes
+    Collection<Person> findAllPersons(User user);
+    
     // chercher les personnes d'un groupe
-    Collection<Person> findAllPersons(User user, long groupId);
+    Collection<Person> findAllPersonsByGroup(User user, long groupId);
        
     // chercher les personnes par le param name
     Collection<Person> findPersonsByName(User user, String name);

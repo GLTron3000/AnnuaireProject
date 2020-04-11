@@ -24,17 +24,18 @@
     <div class="navbar-end">
        <div class="navbar-item">
          <div class="buttons">
-         <c:choose>
-		    <c:when test="${sessionScope.user.getPerson() == null}">
-		        <a class="button is-light" href="/log">Connexion</a>
-		    </c:when>    
-		    <c:otherwise>
-		    	<a class="button is-primary" href="/profiles?id=${sessionScope.user.getPerson().getId()}">Mon profile</a> 
-		    	<a class="button is-danger" href="/logout">Déconnexion</a> 
-		    </c:otherwise>
-		</c:choose>
-           
-         </div>
+         
+         	<c:choose>
+			    <c:when test="${sessionScope.user.getPerson() == null}">
+			        <a class="button is-light" href="/log">Connexion</a>
+			    </c:when>    
+			    <c:otherwise>
+			    	<a class="button is-primary" href="/profiles?id=${sessionScope.user.getPerson().getId()}">Mon profile</a> 
+			    	<a class="button is-danger" href="/logout">Déconnexion</a> 
+			    </c:otherwise>
+			</c:choose>
+         
+        </div>
        </div>
      </div>
 

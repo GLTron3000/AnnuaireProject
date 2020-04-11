@@ -49,22 +49,12 @@ public class DirectoryController {
 				if(part < 0) part = 0; 
 			}
 			
-			Collection<Group> groups = manager.findAllGroup(user);
-			ArrayList<Person> persons = new ArrayList<Person>();
-			
-			groups.forEach(group -> {
-				group.getPersons().forEach(person -> {
-					persons.add(person);
-				});
-			});
-			
-			ArrayList<Person> filteredPersons = new ArrayList<Person>();
-			
-			for(int i = part*pageSize; i < part*pageSize+pageSize && i < persons.size(); i++) {
-				filteredPersons.add((Person) persons.toArray()[i]);
-			}
+			ArrayList<Person> persons = new ArrayList<Person>(manager.findAllPersons(user));			
 
-			return new ModelAndView("personList", "persons", filteredPersons);
+			int firstIndex = part*pageSize;
+			int lastIndex = part*pageSize+pageSize > persons.size() ? persons.size() : part*pageSize+pageSize;
+			
+			return new ModelAndView("personList", "persons", persons.subList(firstIndex, lastIndex));
 		}
 	}
 	
