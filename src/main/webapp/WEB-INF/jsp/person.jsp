@@ -21,12 +21,24 @@
                        <p class="title"><c:out value="${person.getName()}" /> <c:out value="${person.getFirstname()}" /></p>
                        <p class="subtitle"><c:out value="${person.getGroup().getName()}" /></p>
                        <hr>
-                       <p class="subtitle"><fmt:formatDate pattern = "dd-MM-yyyy" value = "${person.getBirthdate()}" /></p>
-                       <p class="subtitle"><c:out value="${person.getEmail()}" /></p>
-                       <p class="subtitle"><c:out value="${person.getWebsite()}" /></p>
+                       <p class="subtitle">
+                       	<span class="icon"><i class="fas fa-birthday-cake"></i></span>
+                       	<fmt:formatDate pattern = "dd-MM-yyyy" value = "${person.getBirthdate()}" />
+                       </p>
+                       <p class="subtitle">
+                       	<span class="icon"><i class="fas fa-envelope"></i></span>
+                       	<c:out value="${person.getEmail()}" />
+                       </p>
+                       <p class="subtitle">
+                       	<span class="icon"><i class="fas fa-home"></i></span>
+                       	<c:out value="${person.getWebsite()}" />
+                       </p>
                        
                        <c:if test="${sessionScope.user.getPerson().getId().equals(person.getId())}">
-                       	<a class="button is-warning" href="/profiles/edit?id=${sessionScope.user.getPerson().getId()}">Editer le profile</a>
+                       	<a class="button is-warning" href="/profiles/edit?id=${sessionScope.user.getPerson().getId()}">
+                       		<span class="icon"><i class="fas fa-edit"></i></span>
+                       		<span>Editer le profile</span>
+                       	</a>
                        </c:if>
                        
                    </div>

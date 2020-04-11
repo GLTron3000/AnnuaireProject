@@ -1,7 +1,6 @@
 package mybootapp.web;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
@@ -102,15 +101,12 @@ public class DirectoryController {
 				if(part < 0) part = 0; 
 			}
 			
-			Collection<Group> groups = manager.findAllGroup(user);
-			ArrayList<Group> filteredGroups = new ArrayList<Group>();
+			ArrayList<Group> groups = new ArrayList<Group>(manager.findAllGroup(user));
 			
-			for(int i = part*pageSize; i < part*pageSize+pageSize && i < groups.size(); i++) {
-				filteredGroups.add((Group) groups.toArray()[i]);
-			}
+			int firstIndex = part*pageSize;
+			int lastIndex = part*pageSize+pageSize > groups.size() ? groups.size() : part*pageSize+pageSize;
 					
-			System.err.println("[CONTROLER] group list s:"+filteredGroups.size());
-			return new ModelAndView("groupList", "groups", filteredGroups);
+			return new ModelAndView("groupList", "groups", groups.subList(firstIndex, lastIndex));
 		}
 	}
 	

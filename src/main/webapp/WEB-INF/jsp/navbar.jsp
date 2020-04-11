@@ -15,10 +15,22 @@
 
   <div id="navbar" class="navbar-menu">
     <div class="navbar-start">
-      <a class="navbar-item" href="/">Rechercher</a>    
-      <a class="navbar-item" href="/profiles">Personnes</a>
-      <a class="navbar-item" href="/groups">Groupes</a>
-      <a class="navbar-item">A Propos</a>
+      <a class="navbar-item" href="/">
+      	<span class="icon is-medium 	"><i class="fas fa-search"></i></span>
+      	<span>Rechercher</span>
+      </a>    
+      <a class="navbar-item" href="/profiles">
+      	<span class="icon is-medium 	"><i class="fas fa-users"></i></span>
+      	<span>Personnes</span>
+      </a>
+      <a class="navbar-item" href="/groups">
+      	<span class="icon is-medium 	"><i class="fas fa-folder"></i></span>
+      	<span>Groupes</span>
+      </a>
+      <a class="navbar-item">
+      	<span class="icon is-medium 	"><i class="fas fa-question-circle"></i></span>
+      	<span>A Propos</span>
+      </a>
     </div>
     
     <div class="navbar-end">
@@ -27,11 +39,20 @@
          
          	<c:choose>
 			    <c:when test="${sessionScope.user.getPerson() == null}">
-			        <a class="button is-light" href="/log">Connexion</a>
+			        <a class="button is-light" href="/log">
+			        	<span class="icon"><i class="fas fa-sign-in-alt"></i></span>
+			        	<span>Connexion</span>
+			        </a>
 			    </c:when>    
 			    <c:otherwise>
-			    	<a class="button is-primary" href="/profiles?id=${sessionScope.user.getPerson().getId()}">Mon profile</a> 
-			    	<a class="button is-danger" href="/logout">Déconnexion</a> 
+			    	<a class="button is-primary" href="/profiles?id=${sessionScope.user.getPerson().getId()}">
+			    		<span class="icon"><i class="fas fa-user"></i></span>
+			    		<span>Mon profile</span>
+			    	</a> 
+			    	<a class="button is-danger" href="/logout">
+			    		<span class="icon"><i class="fas fa-sign-out-alt"></i></span>
+			    		<span>Déconnexion</span>
+			    	</a> 
 			    </c:otherwise>
 			</c:choose>
          

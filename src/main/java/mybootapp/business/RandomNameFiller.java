@@ -27,23 +27,23 @@ public class RandomNameFiller {
 	
 	@EventListener(ContextRefreshedEvent.class)
     public void onApplicationEvent(ContextRefreshedEvent event) {
-		event.getApplicationContext().getBean(RandomNameFiller.class).fillDB(100000);
+		event.getApplicationContext().getBean(RandomNameFiller.class).fillDB(100000, 1000);
 	}
 	
 	@Transactional
-	public void fillDB(int nbOfNames) {
+	public void fillDB(int nbOfPersons, int nbOfGroups) {
 		Group groupLess = new Group("Sans groupe");
 		groups.add(groupLess);
 		
 		//dao.addGroup(groupLess);
 		
-		for(int i = 0; i < groupList.length; i++) {
-			groups.add(new Group(groupList[i]));
+		for(int i = 0; i < nbOfGroups; i++) {
+			groups.add(new Group("Groupe "+i));
 		}
 		
 		groups.forEach(group -> dao.addGroup(group));
 		
-		while(nbOfNames != 0) {
+		while(nbOfPersons != 0) {
 			Person p = new Person();
 			String name = getRandom(nameList);
 			String firstname = getRandom(firstnameList);
@@ -58,7 +58,7 @@ public class RandomNameFiller {
 			p.setPassword("1234");
 			
 			dao.addPerson(p);
-			nbOfNames--;
+			nbOfPersons--;
 		}
 		
 		addAdmin();
