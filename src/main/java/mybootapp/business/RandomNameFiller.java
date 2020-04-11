@@ -1,5 +1,6 @@
 package mybootapp.business;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
@@ -19,6 +20,7 @@ public class RandomNameFiller {
 	String[] nameList = {"Colbert", "Delisle", "Manaudou", "Lortie", "Charbonneau", "Blaise", "Gilson", "Mesny", "Crevier", "Baugé"};
 	String[] firstnameList = {"Jean-Marc", "Jean-Guy", "Pierre", "William", "Geoffroy", "Égide", "Godefroy", "Josué", "Gilles", "Gérald"};
 	String[] groupList = {"g1", "g2", "g3", "g4"};
+	ArrayList<Group> groups = new ArrayList<Group>();
 	
 	@Autowired
 	PersonDao dao;
@@ -31,19 +33,28 @@ public class RandomNameFiller {
 	@Transactional
 	public void fillDB(int nbOfNames) {
 		Group groupLess = new Group("Sans groupe");
-		dao.addGroup(groupLess);
+		groups.add(groupLess);
+		
+		//dao.addGroup(groupLess);
+		
+		for(int i = 0; i < groupList.length; i++) {
+			groups.add(new Group(groupList[i]));
+		}
+		
+		groups.forEach(group -> dao.addGroup(group));
 		
 		while(nbOfNames != 0) {
 			Person p = new Person();
 			String name = getRandom(nameList);
 			String firstname = getRandom(firstnameList);
+			Group g = getRandomGroup(groups);
 			
 			p.setFirstname(firstname);
 			p.setName(name);
 			p.setBirthdate(getRandomDate());
 			p.setEmail(name+"."+firstname+"@mail.fr");
 			p.setWebsite(name+"."+firstname+".fr");
-			p.setGroup(groupLess);
+			p.setGroup(g);
 			p.setPassword("1234");
 			
 			dao.addPerson(p);
@@ -56,6 +67,11 @@ public class RandomNameFiller {
 	private String getRandom(String[] array) {
 	    int rand = new Random().nextInt(array.length);
 	    return array[rand];
+	}
+	
+	private Group getRandomGroup(ArrayList<Group> array) {
+	    int rand = new Random().nextInt(array.size());
+	    return array.get(rand);
 	}
 
 	private Date getRandomDate() {

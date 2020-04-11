@@ -72,7 +72,7 @@ public class DirectoryController {
 	public ModelAndView showProfilesFind(HttpSession session, @RequestParam("name")String name) {
 		User user = getUser(session);
 		final var result = manager.findPersonsByName(user, name);
-		return new ModelAndView("personList", "persons", result);
+		return new ModelAndView("personSearch", "persons", result);
 	}
 	
 	@RequestMapping(value = "profiles/edit", method = RequestMethod.GET)
@@ -119,7 +119,7 @@ public class DirectoryController {
 				filteredGroups.add((Group) groups.toArray()[i]);
 			}
 					
-			System.err.println("GENERATED "+filteredGroups.size());
+			System.err.println("[CONTROLER] group list s:"+filteredGroups.size());
 			return new ModelAndView("groupList", "groups", filteredGroups);
 		}
 	}
@@ -127,8 +127,10 @@ public class DirectoryController {
 	@RequestMapping("/groups/find")
 	public ModelAndView showGroupsFind(HttpSession session, @RequestParam("name")String name) {
 		User user = getUser(session);
+		System.err.println("[CONTROLER] group find for:"+name);
 		final var result = manager.findGroupsByName(user, name);
-		return new ModelAndView("groupList", "groups", result);
+		System.err.println("[CONTROLER] group find s:"+result.size());
+		return new ModelAndView("groupSearch", "groups", result);
 	}
 	
 	@RequestMapping(value = "log", method = RequestMethod.GET)

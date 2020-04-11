@@ -7,10 +7,10 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -52,9 +52,8 @@ public class Person implements Serializable{
 	private String password;
 	
 	@Basic
-	@ManyToOne(cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "w_group")
-	private Group group;
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Group currentGroup;
 	
 	
 	public Person() {
@@ -62,7 +61,7 @@ public class Person implements Serializable{
 	}
 
 	public Person(String name, String firstname, String email, String website, Date birthdate,
-			String password, Group group) {
+			String password, Group currentGroup) {
 		super();
 		this.name = name;
 		this.firstname = firstname;
@@ -70,7 +69,7 @@ public class Person implements Serializable{
 		this.website = website;
 		this.birthdate = birthdate;
 		this.password = password;
-		this.group = group;
+		this.currentGroup = currentGroup;
 	}
 
 	public Long getId() {
@@ -130,11 +129,11 @@ public class Person implements Serializable{
 	}
 
 	public Group getGroup() {
-		return group;
+		return currentGroup;
 	}
 
-	public void setGroup(Group group) {
-		this.group = group;
+	public void setGroup(Group currentGroup) {
+		this.currentGroup = currentGroup;
 	}
 	
 }

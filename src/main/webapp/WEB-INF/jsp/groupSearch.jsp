@@ -10,7 +10,7 @@
 <html>
 <head>
 	<%@ include file="/WEB-INF/jsp/head.jsp"%>
-	<title>Boo'Book :: Liste des groupes</title>
+	<title>Boo'Book :: Recherche de groupes</title>
 </head>
 <body>
 	<section class="hero is-fullheight">  
@@ -31,7 +31,7 @@
 	    </div>
  		<div class="hero-body">
         	<div class="container">
-        		<h1 class="title is-1">Groupes:</h1>
+        		<h1 class="title is-1"><c:out value="${groups.size()}" /> groupes trouvé:</h1>
 
 			<c:forEach items="${groups}" var="group">
 				<div class="card">
