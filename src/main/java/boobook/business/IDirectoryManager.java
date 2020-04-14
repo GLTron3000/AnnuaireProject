@@ -1,10 +1,10 @@
-package mybootapp.business;
+package boobook.business;
 
 import java.util.Collection;
 
-import mybootapp.model.Group;
-import mybootapp.model.Person;
-import mybootapp.model.User;
+import boobook.model.Group;
+import boobook.model.Person;
+import boobook.model.User;
 
 public interface IDirectoryManager{
 	

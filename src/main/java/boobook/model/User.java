@@ -1,4 +1,4 @@
-package mybootapp.model;
+package boobook.model;
 
 import java.io.Serializable;
 import javax.persistence.GeneratedValue;

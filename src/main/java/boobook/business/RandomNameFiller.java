@@ -1,4 +1,4 @@
-package mybootapp.business;
+package boobook.business;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -14,8 +14,8 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 
-import mybootapp.model.Group;
-import mybootapp.model.Person;
+import boobook.model.Group;
+import boobook.model.Person;
 
 @Service("databaseFiller")
 public class RandomNameFiller {

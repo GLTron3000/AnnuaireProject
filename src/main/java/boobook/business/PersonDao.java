@@ -1,4 +1,4 @@
-package mybootapp.business;
+package boobook.business;
 
 import java.util.Collection;
 
@@ -11,8 +11,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import mybootapp.model.Group;
-import mybootapp.model.Person;
+import boobook.model.Group;
+import boobook.model.Person;
 
 @Repository
 @Transactional
@@ -87,8 +87,6 @@ public class PersonDao implements IPersonDao {
 	@Override
 	public void removePerson(long id) {
 		Person p = em.find(Person.class, id);
-		
-		// remove from groups ?
 		em.remove(p);
 	}
 

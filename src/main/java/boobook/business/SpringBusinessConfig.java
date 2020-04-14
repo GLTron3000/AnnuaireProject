@@ -1,4 +1,4 @@
-package mybootapp.business;
+package boobook.business;
 
 import java.util.Properties;
 
@@ -50,7 +50,7 @@ public class SpringBusinessConfig {
             @Autowired DataSource ds) {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(ds);
-        em.setPackagesToScan(new String[] { "mybootapp.model" });
+        em.setPackagesToScan(new String[] { "boobook.model" });
         em.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
         em.setBeanName("myData");
         // Configuration d'hibernate

@@ -1,13 +1,13 @@
-package mybootapp.business;
+package boobook.business;
 
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import mybootapp.model.Group;
-import mybootapp.model.Person;
-import mybootapp.model.User;
+import boobook.model.Group;
+import boobook.model.Person;
+import boobook.model.User;
 
 @Service("directoryManager")
 public class DirectoryManager implements IDirectoryManager{

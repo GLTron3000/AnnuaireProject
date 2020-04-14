@@ -6,29 +6,29 @@
       <h1 class="title">Boo'Book</h1>
     </a>
 
-    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasic">
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
     </a>
   </div>
 
-  <div id="navbar" class="navbar-menu">
+  <div id="navbarBasic" class="navbar-menu">
     <div class="navbar-start">
       <a class="navbar-item" href="/">
-      	<span class="icon is-medium 	"><i class="fas fa-search"></i></span>
+      	<span class="icon is-medium"><i class="fas fa-search"></i></span>
       	<span>Rechercher</span>
       </a>    
       <a class="navbar-item" href="/profiles">
-      	<span class="icon is-medium 	"><i class="fas fa-users"></i></span>
+      	<span class="icon is-medium"><i class="fas fa-users"></i></span>
       	<span>Personnes</span>
       </a>
       <a class="navbar-item" href="/groups">
-      	<span class="icon is-medium 	"><i class="fas fa-folder"></i></span>
+      	<span class="icon is-medium"><i class="fas fa-folder"></i></span>
       	<span>Groupes</span>
       </a>
       <a class="navbar-item">
-      	<span class="icon is-medium 	"><i class="fas fa-question-circle"></i></span>
+      	<span class="icon is-medium"><i class="fas fa-question-circle"></i></span>
       	<span>A Propos</span>
       </a>
     </div>

@@ -1,8 +1,6 @@
-package mybootapp.web;
+package boobook.web;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -11,21 +9,18 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import mybootapp.business.IDirectoryManager;
-import mybootapp.model.Group;
-import mybootapp.model.Person;
-import mybootapp.model.User;
+import boobook.business.IDirectoryManager;
+import boobook.model.Group;
+import boobook.model.Person;
+import boobook.model.User;
 
 @Controller
 @RequestMapping("/")
@@ -55,7 +50,7 @@ public class DirectoryController {
 		if(id.isPresent()) {
 			Person person = manager.findPerson(user, id.get());
 			System.err.println("[CONTROLER] profile infos b:"+person.getBirthdate()+" e:"+person.getEmail());
-			return new ModelAndView("person", "person", person);
+			return new ModelAndView("profile", "person", person);
 		} else {
 			int part = 0;
 			int pageSize = 10;
@@ -69,7 +64,7 @@ public class DirectoryController {
 			int firstIndex = part*pageSize;
 			int lastIndex = part*pageSize+pageSize > persons.size() ? persons.size() : part*pageSize+pageSize;
 			
-			return new ModelAndView("personList", "persons", persons.subList(firstIndex, lastIndex));
+			return new ModelAndView("profileList", "persons", persons.subList(firstIndex, lastIndex));
 		}
 	}
 	
@@ -77,7 +72,7 @@ public class DirectoryController {
 	public ModelAndView showProfilesFind(HttpSession session, @RequestParam("name")String name) {
 		User user = getUser(session);
 		final var result = manager.findPersonsByName(user, name);
-		return new ModelAndView("personSearch", "persons", result);
+		return new ModelAndView("profileSearch", "persons", result);
 	}
 	
 	@RequestMapping(value = "profiles/edit", method = RequestMethod.GET)
@@ -87,7 +82,7 @@ public class DirectoryController {
 		if(!user.GetIsLogged()) return new ModelAndView("index");
 		if(user.getPerson() == null) return new ModelAndView("index");
 				
-		return new ModelAndView("editProfile", "person", user.getPerson());
+		return new ModelAndView("profileEdit", "person", user.getPerson());
 	}
 	
 	@RequestMapping(value = "profiles/edit", method = RequestMethod.POST)
@@ -104,7 +99,7 @@ public class DirectoryController {
 		System.err.println("[CONTROLER] update profile p:"+p.getName()+" g:"+p.getGroup().getName());
 		manager.updatePerson(user, p);
 		
-		return new ModelAndView("person", "person", p);
+		return new ModelAndView("profile", "person", p);
 	}
 	
 	@RequestMapping("groups")
@@ -153,7 +148,7 @@ public class DirectoryController {
 		
 		if(manager.login(user, email, password)) {
 			session.setAttribute("user", user);
-			return new ModelAndView("index");
+			return new ModelAndView("profile", "person", user.getPerson());
 		}
 		else {
 			return new ModelAndView("login");
