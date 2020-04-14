@@ -111,6 +111,8 @@ public class DirectoryController {
 		personCache = null;
 		
 		manager.updatePerson(user, p);
+		user.setPerson(p);
+		session.setAttribute("user", user);
 
 		return new ModelAndView("profile/profile", "person", p);
 		
