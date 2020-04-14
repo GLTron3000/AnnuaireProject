@@ -23,7 +23,8 @@
                        <hr>
                        <p class="subtitle">
                        	<span class="icon"><i class="fas fa-birthday-cake"></i></span>
-                       	<fmt:formatDate pattern = "dd-MM-yyyy" value = "${person.getBirthdate()}" />
+                       	<fmt:parseDate pattern = "yyyy-MM-dd" value = "${person.getBirthdate()}" var="formatedDate"/>
+                       	<fmt:formatDate pattern = "dd/MM/yyyy" value = "${formatedDate}" />
                        </p>
                        <p class="subtitle">
                        	<span class="icon"><i class="fas fa-envelope"></i></span>

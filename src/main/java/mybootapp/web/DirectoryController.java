@@ -1,14 +1,21 @@
 package mybootapp.web;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,6 +34,15 @@ public class DirectoryController {
 	@Autowired
 	IDirectoryManager manager;
 		
+	@ModelAttribute("groups")
+    public Map<Long, String> groups() {
+		Map<Long, String> groups = new LinkedHashMap<>();
+		manager.findAllGroup(null).forEach(group -> {
+			groups.put(group.getId(), group.getName());
+		});
+        return groups;
+    }
+	
 	@RequestMapping("")
 	public ModelAndView index(HttpSession session) {
 		return new ModelAndView("index");
@@ -81,9 +97,14 @@ public class DirectoryController {
 		if(!user.GetIsLogged()) return new ModelAndView("index");
 		if(user.getPerson() == null) return new ModelAndView("index");
 		
+		Group g = manager.findGroup(user, p.getGroup().getId());
+		if(g == null) return new ModelAndView("index");
+		p.setGroup(g);
+		
+		System.err.println("[CONTROLER] update profile p:"+p.getName()+" g:"+p.getGroup().getName());
 		manager.updatePerson(user, p);
 		
-		return new ModelAndView("editProfile", "person", user.getPerson());
+		return new ModelAndView("person", "person", p);
 	}
 	
 	@RequestMapping("groups")

@@ -106,6 +106,7 @@ public class PersonDao implements IPersonDao {
 	@Override
 	@Modifying
 	public void updatePerson(Person person){
+		System.err.println("[DAO] updated person p:"+person.getName());
 		em.merge(person);
 	}
 	

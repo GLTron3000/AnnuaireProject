@@ -16,6 +16,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 @Table(name = "AZ_PERSONS")
 public class Person implements Serializable{
@@ -43,9 +45,9 @@ public class Person implements Serializable{
 	private String website;
 	
 	@Basic
-	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "yyyy-mm-dd")
 	@Column
-	private Date birthdate;
+	private String birthdate;
 	
 	@Basic
 	@Column(nullable = false)
@@ -60,7 +62,7 @@ public class Person implements Serializable{
 		super();
 	}
 
-	public Person(String name, String firstname, String email, String website, Date birthdate,
+	public Person(String name, String firstname, String email, String website, String birthdate,
 			String password, Group currentGroup) {
 		super();
 		this.name = name;
@@ -112,11 +114,11 @@ public class Person implements Serializable{
 		this.website = website;
 	}
 
-	public Date getBirthdate() {
+	public String getBirthdate() {
 		return birthdate;
 	}
 
-	public void setBirthdate(Date birthdate) {
+	public void setBirthdate(String birthdate) {
 		this.birthdate = birthdate;
 	}
 

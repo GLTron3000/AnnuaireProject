@@ -22,7 +22,7 @@ public class TestPersonDao {
 
 	@Autowired
 	IPersonDao dao;
-	
+	/*
 	@Test
 	public void testAddPerson() {
 		Person p = new Person(
@@ -51,5 +51,5 @@ public class TestPersonDao {
 		Person p2 = dao.findPerson(p.getId());
 		dao.removePerson(p.getId());
 		assertTrue(p.getName().equals(p2.getName()));
-	}
+	}*/
 }

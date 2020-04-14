@@ -39,6 +39,20 @@
 							</div>
 							
 							<div class="field">
+							  <label class="label">Groupe</label>						  
+							  <form:select path="group.id" multiple="false" class="form-control">
+							        <form:options items="${groups}"/>
+							    </form:select>
+				              <form:errors path="group" cssClass="help is-danger" element="label" />
+							</div>
+							
+							<div class="field">
+							  <label class="label">Date de naissance</label>						  
+							  <form:input type="date" class="control" path="birthdate"/>
+				              <form:errors path="birthdate" cssClass="help is-danger" element="label" />
+							</div>
+							
+							<div class="field">
 							  <label class="label">Email</label>						  
 							  <form:input class="control" path="email" />
 				              <form:errors path="email" cssClass="help is-danger" element="label" />
@@ -51,26 +65,11 @@
 							</div>
 							
 							<div class="field">
-							  <label class="label">Date de naissance</label>						  
-							  <form:input class="control" path="birthdate" />
-				              <form:errors path="birthdate" cssClass="help is-danger" element="label" />
-							</div>
-							
-							<div class="field">
 							  <label class="label">Mot de passe</label>						  
 							  <form:input class="control" path="password" />
 				              <form:errors path="password" cssClass="help is-danger" element="label" />
 							</div>
-							
-							<div class="field">
-							  <label class="label">Groupe</label>						  
-							  <form:select path="group" multiple="false" class="form-control">
-							        <form:option value="" label="--- Select ---" />
-							        <form:options items="${groups}" />
-							    </form:select>
-				              <form:errors path="group" cssClass="help is-danger" element="label" />
-							</div>
-										
+																	
 				            <div class="field">
 				            	<div class="control">
 							    	<button type="submit" class="button is-link">Sauvegarder</button>

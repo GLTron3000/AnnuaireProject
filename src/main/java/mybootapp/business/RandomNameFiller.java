@@ -1,5 +1,7 @@
 package mybootapp.business;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
@@ -74,15 +76,17 @@ public class RandomNameFiller {
 	    return array.get(rand);
 	}
 
-	private Date getRandomDate() {
-		return new Date(ThreadLocalRandom.current().nextInt() * 1000L);
+	private String getRandomDate() {
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = new Date(ThreadLocalRandom.current().nextInt() * 1000L);
+		return dateFormat.format(date);
 	}
 
 	private void addAdmin() {
 		Person p = new Person();
 		p.setFirstname("admin");
 		p.setName("admin");
-		p.setBirthdate(getRandomDate());
+		p.setBirthdate("1950-12-22");
 		p.setEmail("admin@admin.admin");
 		p.setWebsite("boobook.fr");
 		p.setGroup(new Group("admins"));

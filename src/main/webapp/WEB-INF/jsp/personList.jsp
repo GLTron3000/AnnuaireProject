@@ -47,8 +47,17 @@
 				</c:forEach>
 				<hr>
 				<nav class="pagination is-centered" role="navigation" aria-label="pagination">
-				  <a href="${view}?page=${param.page == null || param.page == 0 ? 0 : param.page-1}" class="pagination-previous">Précédent</a>
-				  <a href="${view}?page=${param.page == null ? 1 : param.page+1}" class="pagination-next">Suivant</a>		  			  
+					<c:choose>
+				    	<c:when test="${param.page != null && param.page != 0}">
+				    	<a href="${view}?page=${param.page == null || param.page == 0 ? 0 : param.page-1}" class="pagination-previous">Précédent</a>
+				    	</c:when>
+				    	
+				    	<c:otherwise>
+				    	<a class="pagination-previous" disabled>Précédent</a>
+				    	</c:otherwise>
+				    </c:choose>	
+				  
+				  	<a href="${view}?page=${param.page == null ? 1 : param.page+1}" class="pagination-next">Suivant</a>		  			  
 				</nav>
           	</div>
           	
