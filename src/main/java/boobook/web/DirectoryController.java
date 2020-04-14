@@ -29,6 +29,9 @@ public class DirectoryController {
 	@Autowired
 	IDirectoryManager manager;
 	
+	@Autowired
+	PersonValidator validator;
+	
 	ArrayList<Person> personCache;
 	ArrayList<Group> groupCache;
 		
@@ -92,6 +95,10 @@ public class DirectoryController {
 	
 	@RequestMapping(value = "profiles/edit", method = RequestMethod.POST)
 	public ModelAndView saveProfile(HttpSession session, @ModelAttribute @Valid Person p, BindingResult result) {
+		validator.validate(p, result);
+		if(result.hasErrors()) {
+			return new ModelAndView("profile/profileEdit", "person", getUser(session).getPerson());
+		}
 		User user = getUser(session);
 		
 		if(!user.GetIsLogged()) return new ModelAndView("index");
@@ -106,6 +113,16 @@ public class DirectoryController {
 		manager.updatePerson(user, p);
 
 		return new ModelAndView("profile/profile", "person", p);
+		
+		/*
+			public String saveProduct(@ModelAttribute Product p, BindingResult result) {
+			    validator.validate(p, result);
+			    if (result.hasErrors()) {
+			        return "productForm";
+			    }
+			    manager.save(p);
+			    return "productsList";
+		}*/
 	}
 	
 	@RequestMapping("groups")
