@@ -41,11 +41,11 @@ public class PersonValidator implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password",
                 "person.password");
 
-       /* if(person.getName().matches(regex)) {
-        	errors.reject("nom invalide");
-        }
+        /*if(!person.getName().matches("[a-zA-Z-]*")) {
+        	errors.reject("name", "person.name.format");
+        }*/
         
-        if() {
+       /* if() {
         	errors.reject("prénom invalide");
         }*/
         
