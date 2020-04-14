@@ -10,7 +10,7 @@
 <html>
 <head>
 	<%@ include file="/WEB-INF/jsp/head.jsp"%>
-	<title>Boo'Book :: Liste des groupes</title>
+	<title>Boo'Book :: Créer un compte</title>
 </head>
 <body>
 	<section class="hero is-fullheight">  

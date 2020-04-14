@@ -113,6 +113,25 @@ public class DirectoryManager implements IDirectoryManager{
 		
 		return true;
 	}
+	
+	@Override
+	public boolean resetPasword(String email) {
+		Person p = dao.findPersonByEmail(email);
+		if(p == null) return false;
+		
+		// GENERATE TOKEN
+		// SEND EMAIL
+		
+		return true;
+	}
+
+	@Override
+	public boolean changePassword(String token, String password) {
+		// CHECK EXPIRATION DATE FROM TOKEN
+		// EXTRACT ID FROM TOKEN
+		// CHANGE PASSWORD
+		return false;
+	}
 
 	@Override
 	// oublier l'utilisateur
@@ -129,11 +148,10 @@ public class DirectoryManager implements IDirectoryManager{
 	
 	@Override
 	public void updatePerson(User user, Person upDatedPerson) {
-		System.err.println("[MANAGER] upadet person id:" + upDatedPerson.getId() + " vs " + user.getPerson().getId());
+		System.err.println("[MANAGER] update person id:" + upDatedPerson.getId() + " vs " + user.getPerson().getId());
 		if(upDatedPerson.getId().equals(user.getPerson().getId())) {
 			dao.updatePerson(upDatedPerson);
-			//dao.addPerson(upDatedPerson);
-			System.err.println("[MANAGER] upadet ok");
 		}
 	}
+
 }

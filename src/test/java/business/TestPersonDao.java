@@ -28,9 +28,9 @@ public class TestPersonDao {
 	
 	@BeforeAll
 	public void init() {		
-		dao.addPerson(new Person("p1", "p1", "mail1", "", "01-01-1900", "1234", new Group("groupe 1")));
-		dao.addPerson(new Person("p2", "p2", "mail2", "", "01-01-1900", "1234", new Group("groupe 2")));
-		dao.addPerson(new Person("p3", "p3", "mail2", "", "01-01-1900", "1234", new Group("groupe 3")));
+		dao.addPerson(new Person("p1", "p1b", "mail1", "", "01-01-1900", "1234", new Group("groupe 1")));
+		dao.addPerson(new Person("p2", "p2b", "mail2", "", "01-01-1900", "1234", new Group("groupe 2")));
+		dao.addPerson(new Person("p3", "p3b", "mail2", "", "01-01-1900", "1234", new Group("groupe 3")));
 	}
 	
 	@Test

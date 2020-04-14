@@ -28,6 +28,9 @@ public class DirectoryController {
 	
 	@Autowired
 	IDirectoryManager manager;
+	
+	ArrayList<Person> personCache;
+	ArrayList<Group> groupCache;
 		
 	@ModelAttribute("groups")
     public Map<Long, String> groups() {
@@ -50,7 +53,7 @@ public class DirectoryController {
 		if(id.isPresent()) {
 			Person person = manager.findPerson(user, id.get());
 			System.err.println("[CONTROLER] profile infos b:"+person.getBirthdate()+" e:"+person.getEmail());
-			return new ModelAndView("profile", "person", person);
+			return new ModelAndView("profile/profile", "person", person);
 		} else {
 			int part = 0;
 			int pageSize = 10;
@@ -58,13 +61,15 @@ public class DirectoryController {
 				part = page.get();
 				if(part < 0) part = 0; 
 			}
-			
-			ArrayList<Person> persons = new ArrayList<Person>(manager.findAllPersons(user));			
 
+			if(personCache == null) personCache = new ArrayList<Person>(manager.findAllPersons(user));
+			
+			ArrayList<Person> persons = personCache;			
+			
 			int firstIndex = part*pageSize;
 			int lastIndex = part*pageSize+pageSize > persons.size() ? persons.size() : part*pageSize+pageSize;
 			
-			return new ModelAndView("profileList", "persons", persons.subList(firstIndex, lastIndex));
+			return new ModelAndView("profile/profileList", "persons", persons.subList(firstIndex, lastIndex));
 		}
 	}
 	
@@ -72,7 +77,7 @@ public class DirectoryController {
 	public ModelAndView showProfilesFind(HttpSession session, @RequestParam("name")String name) {
 		User user = getUser(session);
 		final var result = manager.findPersonsByName(user, name);
-		return new ModelAndView("profileSearch", "persons", result);
+		return new ModelAndView("profile/profileSearch", "persons", result);
 	}
 	
 	@RequestMapping(value = "profiles/edit", method = RequestMethod.GET)
@@ -82,7 +87,7 @@ public class DirectoryController {
 		if(!user.GetIsLogged()) return new ModelAndView("index");
 		if(user.getPerson() == null) return new ModelAndView("index");
 				
-		return new ModelAndView("profileEdit", "person", user.getPerson());
+		return new ModelAndView("profile/profileEdit", "person", user.getPerson());
 	}
 	
 	@RequestMapping(value = "profiles/edit", method = RequestMethod.POST)
@@ -96,10 +101,11 @@ public class DirectoryController {
 		if(g == null) return new ModelAndView("index");
 		p.setGroup(g);
 		
-		System.err.println("[CONTROLER] update profile p:"+p.getName()+" g:"+p.getGroup().getName());
-		manager.updatePerson(user, p);
+		personCache = null;
 		
-		return new ModelAndView("profile", "person", p);
+		manager.updatePerson(user, p);
+
+		return new ModelAndView("profile/profile", "person", p);
 	}
 	
 	@RequestMapping("groups")
@@ -108,7 +114,7 @@ public class DirectoryController {
 		
 		if(id.isPresent()) {
 			Group group = manager.findGroup(user, id.get());
-			return new ModelAndView("group", "group", group);
+			return new ModelAndView("group/group", "group", group);
 		} else {
 			int part = 0;
 			int pageSize = 10;
@@ -117,52 +123,23 @@ public class DirectoryController {
 				if(part < 0) part = 0; 
 			}
 			
-			ArrayList<Group> groups = new ArrayList<Group>(manager.findAllGroup(user));
+			if(groupCache == null) groupCache = new ArrayList<Group>(manager.findAllGroup(user));
+			ArrayList<Group> groups = groupCache;
 			
 			int firstIndex = part*pageSize;
 			int lastIndex = part*pageSize+pageSize > groups.size() ? groups.size() : part*pageSize+pageSize;
 					
-			return new ModelAndView("groupList", "groups", groups.subList(firstIndex, lastIndex));
+			return new ModelAndView("group/groupList", "groups", groups.subList(firstIndex, lastIndex));
 		}
 	}
 	
 	@RequestMapping("/groups/find")
 	public ModelAndView showGroupsFind(HttpSession session, @RequestParam("name")String name) {
 		User user = getUser(session);
-		System.err.println("[CONTROLER] group find for:"+name);
 		final var result = manager.findGroupsByName(user, name);
-		System.err.println("[CONTROLER] group find s:"+result.size());
-		return new ModelAndView("groupSearch", "groups", result);
+		return new ModelAndView("group/groupSearch", "groups", result);
 	}
-	
-	@RequestMapping(value = "log", method = RequestMethod.GET)
-	public ModelAndView login(HttpSession session) {	
-		return new ModelAndView("login");
-	}
-	
-	@RequestMapping(value = "log", method = RequestMethod.POST)
-	public ModelAndView doLogin(HttpSession session, @RequestParam("email")String email, @RequestParam("password")String password) {
-		User user = getUser(session);
-		
-		System.err.println("[CONTROLER] login e:"+email+" p:"+password);
-		
-		if(manager.login(user, email, password)) {
-			session.setAttribute("user", user);
-			return new ModelAndView("profile", "person", user.getPerson());
-		}
-		else {
-			return new ModelAndView("login");
-		}
-	}
-	
-	@RequestMapping("logout")
-	public ModelAndView logout(HttpSession session) {
-		User user = getUser(session);
-		manager.logout(user);
-		session.setAttribute("user", user);
-		return new ModelAndView("login");
-	}
-		
+			
 	private User getUser(HttpSession session) {
 		User user;
     	if(session.getAttribute("user") == null) {

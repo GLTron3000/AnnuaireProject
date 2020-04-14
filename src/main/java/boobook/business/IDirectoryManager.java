@@ -34,6 +34,12 @@ public interface IDirectoryManager{
     
     // identifier un utilisateur
     boolean login(User user, String email, String password);
+    
+    // generer un token de reset 
+    boolean resetPasword(String email);
+    
+    // changer le mot de passe correspondant au token
+    boolean changePassword(String token, String password);
 
     // oublier l'utilisateur
     void logout(User user);
@@ -44,4 +50,5 @@ public interface IDirectoryManager{
     // enregistre les modifs d'une personne
     void updatePerson(User user, Person upDatedPerson);
 
+    
 }

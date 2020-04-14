@@ -10,7 +10,7 @@
 <html>
 <head>
 	<%@ include file="/WEB-INF/jsp/head.jsp"%>
-	<title>Boo'Book ::Edit Profile</title>
+	<title>Boo'Book :: Edit Profile</title>
 </head>
 <body>
 	<section class="hero is-fullheight">  

@@ -27,7 +27,11 @@ public class PersonDao implements IPersonDao {
 	public Collection<Group> findAllGroups() {
 		String query = "SELECT g FROM Group g ORDER BY name ASC";
 		TypedQuery<Group> q = em.createQuery(query, Group.class);
-		return q.getResultList();
+		try {
+			return q.getResultList();
+		} catch (Exception e) {
+			return null;
+		}
 	}
 	
 	@Override
@@ -35,14 +39,22 @@ public class PersonDao implements IPersonDao {
 		String query = "SELECT g FROM Group g WHERE g.name LIKE :name ORDER BY name ASC";
 		TypedQuery<Group> q = em.createQuery(query, Group.class);
 		q.setParameter("name", "%"+name+"%");
-		return q.getResultList();
+		try {
+			return q.getResultList();
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
 	@Override
 	public Collection<Person> findAllPersons() {
 		String query = "SELECT p FROM Person p ORDER BY name ASC";
 		TypedQuery<Person> q = em.createQuery(query, Person.class);
-		return q.getResultList();
+		try {
+			return q.getResultList();
+		} catch (Exception e) {
+			return null;
+		}
 	}
 	
 	@Override
@@ -50,7 +62,11 @@ public class PersonDao implements IPersonDao {
 		String query = "SELECT p FROM Person p WHERE group.id = :group ORDER BY name ASC";
 		TypedQuery<Person> q = em.createQuery(query, Person.class);
 		q.setParameter(0, groupId);
-		return q.getResultList();
+		try {
+			return q.getResultList();
+		} catch (Exception e) {
+			return null;
+		}
 	}
 	
 	@Override
@@ -58,7 +74,11 @@ public class PersonDao implements IPersonDao {
 		String query = "SELECT p FROM Person p WHERE p.name LIKE :name OR p.firstname LIKE :name ORDER BY name ASC";
 		TypedQuery<Person> q = em.createQuery(query, Person.class);
 		q.setParameter("name", "%"+name+"%");
-		return q.getResultList();
+		try {
+			return q.getResultList();
+		} catch (Exception e) {
+			return null;
+		}
 	}
 	
 	@Override
@@ -66,7 +86,11 @@ public class PersonDao implements IPersonDao {
 		String query = "SELECT p FROM Person p WHERE p.email = : email";
 		TypedQuery<Person> q = em.createQuery(query, Person.class);
 		q.setParameter("email", email);
-		return q.getSingleResult();
+		try {
+			return q.getSingleResult();
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
 	@Override
