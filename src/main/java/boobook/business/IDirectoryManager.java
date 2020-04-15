@@ -36,7 +36,7 @@ public interface IDirectoryManager{
     boolean login(User user, String email, String password);
     
     // generer un token de reset 
-    boolean resetPasword(String email);
+    public boolean resetPassword(String email);
     
     // changer le mot de passe correspondant au token
     boolean changePassword(String token, String password);

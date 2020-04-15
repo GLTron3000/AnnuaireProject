@@ -54,10 +54,19 @@ public class LogController {
 	
 	@RequestMapping(value = "/forgetpassword", method = RequestMethod.POST)
 	public ModelAndView doForgetPassword(@RequestParam("email") String email) {
-		if(email == null) return new ModelAndView("index");
-		
-		if(manager.resetPasword(email)) return new ModelAndView("log/forgetPasswordConfirm", "email", email);
+		if(manager.resetPassword(email)) return new ModelAndView("log/forgetPasswordConfirm", "email", email);
 		else return new ModelAndView("index");
+	}
+	
+	@RequestMapping(value = "/resetpassword", method = RequestMethod.GET)
+	public ModelAndView resetPassword(@RequestParam("token") String token) {
+		return new ModelAndView("log/resetPassword", "token", token);
+	}
+	
+	@RequestMapping(value = "/resetpassword", method = RequestMethod.POST)
+	public String doResetPassword(@RequestParam("token") String token, @RequestParam("password") String password) {
+		if(manager.changePassword(token, password)) return "redirect:";
+		return "redirect:index";
 	}
 		
 	private User getUser(HttpSession session) {

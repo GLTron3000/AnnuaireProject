@@ -1,6 +1,12 @@
 package boobook.business;
 
+import java.security.Key;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Collection;
+import java.util.Date;
+
+import javax.crypto.spec.SecretKeySpec;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,12 +14,18 @@ import org.springframework.stereotype.Service;
 import boobook.model.Group;
 import boobook.model.Person;
 import boobook.model.User;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 
 @Service("directoryManager")
 public class DirectoryManager implements IDirectoryManager{
 	
 	@Autowired
     IPersonDao dao;
+	
+	@Autowired
+	IEmailService emailService;
 
 	@Override
 	// créer un utilisateur anonyme
@@ -115,23 +127,53 @@ public class DirectoryManager implements IDirectoryManager{
 	}
 	
 	@Override
-	public boolean resetPasword(String email) {
+	public boolean resetPassword(String email) {
 		Person p = dao.findPersonByEmail(email);
 		if(p == null) return false;
-		
-		// GENERATE TOKEN
-		// SEND EMAIL
+
+		Key key = generateKey();
+        String token = Jwts.builder()
+                .setSubject(p.getId().toString())
+                .claim("id",p.getId())
+                .setIssuedAt(new Date())
+                .setExpiration(toDate(LocalDateTime.now().plusDays(1L)))
+                .signWith(SignatureAlgorithm.HS512, key)
+                .compact();
+
+        System.err.println("[MANAGER] reset password token t:"+token);
+		emailService.sendResetEmail(token, email);
 		
 		return true;
 	}
-
+		    
 	@Override
 	public boolean changePassword(String token, String password) {
-		// CHECK EXPIRATION DATE FROM TOKEN
-		// EXTRACT ID FROM TOKEN
-		// CHANGE PASSWORD
-		return false;
+		Key key = generateKey();
+        Claims claims = Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody();
+
+        if(claims.getExpiration().before(new Date())) return false;
+
+        long id = (Integer) claims.get("id");
+        
+        Person p = dao.findPerson(id);
+		if(p == null) return false;
+
+		System.err.println("[MANAGER] change password to p:"+password);
+		p.setPassword(password);
+		dao.updatePerson(p);
+		
+		return true;
 	}
+	
+	private Date toDate(LocalDateTime localDateTime) {
+        return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
+    }
+    
+    private Key generateKey() {
+        String keyString = "LePetitBonhommeEnMousse";
+        Key key = new SecretKeySpec(keyString.getBytes(), 0, keyString.getBytes().length, "DES");
+        return key;
+    }
 
 	@Override
 	// oublier l'utilisateur
