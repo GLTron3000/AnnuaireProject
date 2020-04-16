@@ -37,6 +37,11 @@
                             </span>
                           </p>
                         </div>
+                        <div>
+	                        <c:if test = "${sessionScope.user.GetConnectionError() == true}">
+	         					<p class="has-text-danger">Email ou mot de passe invalide</p>
+	     			 		</c:if>
+                        </div>
                         <div class="field is-grouped is-grouped-centered">
                           <p class="control">
                             <button class="button is-info">Se connecter</button>

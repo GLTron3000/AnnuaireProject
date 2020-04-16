@@ -47,7 +47,7 @@
 			    <c:otherwise>
 			    	<a class="button is-primary" href="/profiles?id=${sessionScope.user.getPerson().getId()}">
 			    		<span class="icon"><i class="fas fa-user"></i></span>
-			    		<span>Mon profile</span>
+			    		<span>Mon profil</span>
 			    	</a> 
 			    	<a class="button is-danger" href="/log/out">
 			    		<span class="icon"><i class="fas fa-sign-out-alt"></i></span>

@@ -32,9 +32,11 @@ public class LogController {
 		
 		if(manager.login(user, email, password)) {
 			session.setAttribute("user", user);
+			user.setConnectionError(false);
 			return new ModelAndView("profile/profile", "person", user.getPerson());
 		}
 		else {
+			user.setConnectionError(true);
 			return new ModelAndView("log/login");
 		}
 	}

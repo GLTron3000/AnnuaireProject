@@ -24,12 +24,12 @@
                    
                        <form:form method="POST" modelAttribute="person">
 
-				            <form:errors path="*" cssClass="help is-danger" element="label" />
+				            <form:errors path="*" cssClass="help is-danger" element="div" />
 							
 							<div class="field">
 							  <label class="label">Prenom</label>						  
 							  <form:input class="control" path="firstname" />
-				              <form:errors path="firstname" cssClass="help is-danger" element="div" />
+				              <form:errors path="firstname" cssClass="help is-danger" element="label" />
 							</div>
 							
 							<div class="field">

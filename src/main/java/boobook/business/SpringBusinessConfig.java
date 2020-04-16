@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -80,4 +81,13 @@ public class SpringBusinessConfig {
     public PersistenceAnnotationBeanPostProcessor annotationProcessor() {
         return new PersistenceAnnotationBeanPostProcessor();
     }
+    
+    /*set the properties*/
+    
+    @Bean("messageSource")
+	public ResourceBundleMessageSource messageSource() {
+	    ResourceBundleMessageSource r = new ResourceBundleMessageSource();
+	    r.setBasenames("/src/main/resources/person");
+	    return r;
+	}
 }

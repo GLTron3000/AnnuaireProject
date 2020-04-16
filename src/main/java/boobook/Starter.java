@@ -19,13 +19,6 @@ public class Starter extends SpringBootServletInitializer {
 		return application.sources(Starter.class);
 	}
 	
-	@Bean("messageSource")
-	public ResourceBundleMessageSource messageSource() {
-	    ResourceBundleMessageSource r = new ResourceBundleMessageSource();
-	    r.setBasenames("/src/main/resources/person");
-	    return r;
-	}
-
 	public static void main(String[] args) {
 		SpringApplication.run(Starter.class, args);
 	}
