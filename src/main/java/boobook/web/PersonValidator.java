@@ -41,16 +41,24 @@ public class PersonValidator implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password",
                 "person.password");
 
-        /*if(!person.getName().matches("[a-zA-Z-]*")) {
-        	errors.reject("name", "person.name.format");
-        }*/
+        if(!person.getName().matches("[A-Z][a-z]+([-][A-Z]([a-z])+)?")) {
+        	errors.rejectValue("name", "person.name.format", "format du nom non respecté");
+        }
         
-       /* if() {
-        	errors.reject("prénom invalide");
-        }*/
+       if(!person.getFirstname().matches("[A-Z][a-z]+([-][A-Z]([a-z])+)?")) {
+        	errors.rejectValue("firstname", "person.firstname.format", "format du prénom non respecté -> une Majuscule et des minuscules");
+        }
         
-        if(!person.getEmail().matches("^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$")) {
-        	errors.reject("email","person.email.format");
+        if(!person.getEmail().matches("([a-z0-9])+([.]([a-z0-9])+)?@([a-z])+(([.]([a-z])+)?|([-]([a-z])+)?)+.([a-z]){2,}")) {
+        	errors.rejectValue("email","person.email.format", "email invalide");
+        }
+        
+        if(!person.getWebsite().matches("([a-z0-9])+(([.]([a-z0-9])+)?|([-]([a-z0-9])+)?)+.([a-z]){2,}")) {
+        	errors.rejectValue("website","person.website.format", "website invalide");
+        }
+        
+        if(!person.getPassword().matches("(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*-_=+])[a-zA-Z0-9!@#$%^&*-_=+](?=\\S+$).{8,15}")) {
+        	errors.rejectValue("password","person.password.format", "password invalide");
         }
 
     }

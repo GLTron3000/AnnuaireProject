@@ -29,7 +29,7 @@
 							<div class="field">
 							  <label class="label">Prenom</label>						  
 							  <form:input class="control" path="firstname" />
-				              <form:errors path="firstname" cssClass="help is-danger" element="label" />
+				              <form:errors path="firstname" cssClass="help is-danger" element="div" />
 							</div>
 							
 							<div class="field">

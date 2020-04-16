@@ -22,7 +22,7 @@ public class Starter extends SpringBootServletInitializer {
 	@Bean("messageSource")
 	public ResourceBundleMessageSource messageSource() {
 	    ResourceBundleMessageSource r = new ResourceBundleMessageSource();
-	    r.setBasenames("/src/main/resources/person"); //je sais ap si c'est le bon chemin mdr //
+	    r.setBasenames("/src/main/resources/person");
 	    return r;
 	}
 
