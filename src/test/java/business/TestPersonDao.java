@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -20,17 +21,28 @@ import boobook.model.Person;
 
 
 @ExtendWith(SpringExtension.class)
+@SpringBootTest
 @ContextConfiguration(classes = SpringBusinessConfig.class)
 public class TestPersonDao {
 
-	@Autowired
-	IPersonDao dao;
+	@Autowired(required = true)
+	static IPersonDao dao;
+	
+	static Person p1;
+	static Person p2;
+	static Person p3;
+	static Person p4;
 	
 	@BeforeAll
-	public void init() {		
-		dao.addPerson(new Person("p1", "p1b", "mail1", "", "01-01-1900", "1234", new Group("groupe 1")));
-		dao.addPerson(new Person("p2", "p2b", "mail2", "", "01-01-1900", "1234", new Group("groupe 2")));
-		dao.addPerson(new Person("p3", "p3b", "mail2", "", "01-01-1900", "1234", new Group("groupe 3")));
+	public static void init() {	
+		p1 = new Person("p1", "p1b", "mail1", "", "01-01-1900", "1234", new Group("groupe 1"));
+		p2 = new Person("p2", "p2b", "mail2", "", "01-01-1900", "1234", new Group("groupe 2"));
+		p3 = new Person("p3", "p3b", "mail3", "", "01-01-1900", "1234", new Group("groupe 3"));
+		p4 = new Person("p4", "p4b", "mail4", "", "01-01-1900", "1234", new Group("groupe 4"));
+		dao.addPerson(p1);
+		dao.addPerson(p2);
+		dao.addPerson(p3);
+		dao.addPerson(p4);
 	}
 	
 	@Test
@@ -46,9 +58,9 @@ public class TestPersonDao {
 		dao.addPerson(p);
 		dao.removePerson(p.getId());
 	}
-	
+		
 	@Test
-	public void testFindPerson() {
+	public void testRemovePerson() {
 		Person p = new Person(
 				"Geralt", 
 				"De Riv",
@@ -58,9 +70,28 @@ public class TestPersonDao {
 				"1234",
 				new Group("Sorceleur"));
 		dao.addPerson(p);
-		Person p2 = dao.findPerson(p.getId());
 		dao.removePerson(p.getId());
-		assertTrue(p.getName().equals(p2.getName()));
+	}
+	
+	@Test
+	public void testFindPerson() {	
+		Person p = dao.findPerson(p1.getId());
+		assertEquals(p.getName(), p1.getName(), "Not the same");
+	}
+	
+	@Test
+	public void testUpdatePerson() {
+		String updatedName = "p4up";
+		p4.setName(updatedName);
+		dao.updatePerson(p4);
+		Person p = dao.findPerson(p4.getId());
+		assertEquals(p.getName(), updatedName, "Not updated");
+	}
+	
+	@Test
+	public void testFindPersonByEmail() {
+		Person p = dao.findPersonByEmail(p1.getEmail());
+		assertEquals(p.getName(), p1.getName(), "Not the same");
 	}
 	
 	@Test
@@ -85,44 +116,36 @@ public class TestPersonDao {
 	}
 	
 	@Test
-	public void testRemovePerson() {
-		
-	}
-		
-	@Test
-	public void testFindPersonByEmail() {
-		
-	}
-	
-
-	@Test
 	public void testAddGroup() {
-		
+		Group g = new Group("g1");
+		dao.addGroup(g);
 	}
 	
 	@Test
 	public void testRemoveGroup() {
-		
-	}
-	
-	@Test
-	public void testUpdatePerson() {
-		
+		Group g = new Group("g1");
+		dao.addGroup(g);
+		dao.removeGroup(g.getId());
 	}
 	
 	@Test
 	public void testFindGroup() {
-		
+		Group g = new Group("g1");
+		dao.addGroup(g);
+		Group g2 = dao.findGroup(g.getId());
+		assertEquals(g.getName(), g2.getName(), "Not the same");
 	}
 	
 	@Test
 	public void testFindGroupsByName() {
-		
+		Collection<Group> result = dao.findGroupsByName("grou");
+		assertTrue(result.size() == 4, "Incorect result size");
 	}
 	
 	@Test
 	public void testFindPersonsByName() {
-		
+		Collection<Person> result = dao.findPersonsByName("p");
+		assertTrue(result.size() == 4, "Incorect result size");
 	}
 	
 }
