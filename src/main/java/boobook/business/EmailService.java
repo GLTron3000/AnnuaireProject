@@ -18,6 +18,7 @@ public class EmailService implements IEmailService {
 		
 		SimpleMailMessage mail = new SimpleMailMessage();
 		mail.setTo(emailTo);
+		mail.setFrom("Boobook");
 		mail.setSubject("Récupération du mot de passe");
 		mail.setText("Cliquez sur le lien suivant pour réinitialiser votre mot de passe : \n \n"+recoveryLink);
 		

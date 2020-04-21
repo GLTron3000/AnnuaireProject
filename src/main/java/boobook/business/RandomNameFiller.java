@@ -1,6 +1,7 @@
 package boobook.business;
 
 import java.text.DateFormat;
+import java.text.Normalizer;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -36,8 +37,7 @@ public class RandomNameFiller {
 	public void fillDB(int nbOfPersons, int nbOfGroups) {
 		Group groupLess = new Group("Sans groupe");
 		groups.add(groupLess);
-		
-		//dao.addGroup(groupLess);
+		dao.addGroup(groupLess);
 		
 		for(int i = 0; i < nbOfGroups; i++) {
 			groups.add(new Group("Groupe "+i));
@@ -54,8 +54,8 @@ public class RandomNameFiller {
 			p.setFirstname(firstname);
 			p.setName(name);
 			p.setBirthdate(getRandomDate());
-			p.setEmail(name+"."+firstname+"@mail.fr");
-			p.setWebsite(name+"."+firstname+".fr");
+			p.setEmail(Normalizer.normalize(name.toLowerCase()+"."+firstname.toLowerCase()+"@mail.fr", Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", ""));
+			p.setWebsite(Normalizer.normalize(name.toLowerCase()+"-"+firstname.toLowerCase()+".fr", Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", ""));
 			p.setGroup(g);
 			p.setPassword("1234");
 			
@@ -84,8 +84,8 @@ public class RandomNameFiller {
 
 	private void addAdmin() {
 		Person p = new Person();
-		p.setFirstname("admin");
-		p.setName("admin");
+		p.setFirstname("Admin");
+		p.setName("Admin");
 		p.setBirthdate("1950-12-22");
 		p.setEmail("admin@admin.admin");
 		p.setWebsite("boobook.fr");

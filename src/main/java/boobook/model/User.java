@@ -8,7 +8,7 @@ public class User implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	private boolean isLogged = false;
-	private boolean connectionError=false;
+	private boolean connectionError = false;
 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -42,7 +42,7 @@ public class User implements Serializable{
 		this.person = person;
 	}
 	
-	public boolean GetIsLogged() {
+	public boolean getIsLogged() {
 		return isLogged;
 	}
 	
@@ -50,7 +50,7 @@ public class User implements Serializable{
 		isLogged = log;
 	}
 	
-	public boolean GetConnectionError() {
+	public boolean getConnectionError() {
 		return connectionError;
 	}
 	

@@ -80,7 +80,7 @@ public class LogController {
     	}
     	else {
     		user = (User) session.getAttribute("user");
-    		System.err.println("[CONTROLER] get existing session | logged in:"+user.GetIsLogged()+" | p:"+user.getPerson());
+    		System.err.println("[CONTROLER] get existing session | logged in:"+user.getIsLogged()+" | p:"+user.getPerson());
     	}
     	return user;
 	}

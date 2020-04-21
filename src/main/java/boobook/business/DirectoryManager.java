@@ -37,7 +37,7 @@ public class DirectoryManager implements IDirectoryManager{
 	@Override
 	 // chercher une personne
 	public Person findPerson(User user, long personId) {
-		if(user.GetIsLogged())
+		if(user.getIsLogged())
 			return dao.findPerson(personId);
 		else {
 			Person person = dao.findPerson(personId);
@@ -56,7 +56,7 @@ public class DirectoryManager implements IDirectoryManager{
 	@Override
 	// chercher les personnes d'un groupe
 	public Collection<Person> findAllPersons(User user) {
-		if(user.GetIsLogged())
+		if(user.getIsLogged())
 			return dao.findAllPersons();
 		else {
 			Collection<Person> persons = dao.findAllPersons();
@@ -71,7 +71,7 @@ public class DirectoryManager implements IDirectoryManager{
 	@Override
 	// chercher les personnes d'un groupe
 	public Collection<Person> findAllPersonsByGroup(User user, long groupId) {
-		if(user.GetIsLogged())
+		if(user.getIsLogged())
 			return dao.findAllPersonsByGroup(groupId);
 		else {
 			Collection<Person> persons = dao.findAllPersonsByGroup(groupId);
@@ -85,7 +85,7 @@ public class DirectoryManager implements IDirectoryManager{
 	
 	@Override
 	public Collection<Person> findPersonsByName(User user, String name) {
-		if(user.GetIsLogged())
+		if(user.getIsLogged())
 			return dao.findPersonsByName(name);
 		else {
 			Collection<Person> persons = dao.findPersonsByName(name);

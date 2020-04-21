@@ -87,25 +87,27 @@ public class DirectoryController {
 	public ModelAndView editProfile(HttpSession session, @RequestParam int id) {
 		User user = getUser(session);
 		
-		if(!user.GetIsLogged()) return new ModelAndView("index");
+		if(!user.getIsLogged()) return new ModelAndView("index");
 		if(user.getPerson() == null) return new ModelAndView("index");
 				
 		return new ModelAndView("profile/profileEdit", "person", user.getPerson());
 	}
 	
 	@RequestMapping(value = "profiles/edit", method = RequestMethod.POST)
-	public ModelAndView saveProfile(HttpSession session, @ModelAttribute @Valid Person p, BindingResult result) {
-		validator.validate(p, result);
-		if(result.hasErrors()) {
-			return new ModelAndView("profile/profileEdit", "person", getUser(session).getPerson());
-		}
+	public String saveProfile(HttpSession session, @ModelAttribute @Valid Person p, BindingResult result) {
 		User user = getUser(session);
 		
-		if(!user.GetIsLogged()) return new ModelAndView("index");
-		if(user.getPerson() == null) return new ModelAndView("index");
+		if(!user.getIsLogged()) return "index";
+		if(user.getPerson() == null) return "index";
+		
+		validator.validate(p, result);
+		if (result.hasErrors()) {
+			System.err.println("[CONTROLER] profile edit errors");
+			return "profile/profileEdit";
+		}
 		
 		Group g = manager.findGroup(user, p.getGroup().getId());
-		if(g == null) return new ModelAndView("index");
+		if(g == null) return "index";
 		p.setGroup(g);
 		
 		personCache = null;
@@ -114,17 +116,7 @@ public class DirectoryController {
 		user.setPerson(p);
 		session.setAttribute("user", user);
 
-		return new ModelAndView("profile/profile", "person", p);
-		
-		/*
-			public String saveProduct(@ModelAttribute Product p, BindingResult result) {
-			    validator.validate(p, result);
-			    if (result.hasErrors()) {
-			        return "productForm";
-			    }
-			    manager.save(p);
-			    return "productsList";
-		}*/
+		return "profile/profile";
 	}
 	
 	@RequestMapping("groups")
@@ -168,7 +160,7 @@ public class DirectoryController {
     	}
     	else {
     		user = (User) session.getAttribute("user");
-    		System.err.println("[CONTROLER] get existing session | logged in:"+user.GetIsLogged()+" | p:"+user.getPerson());
+    		System.err.println("[CONTROLER] get existing session | logged in:"+user.getIsLogged()+" | p:"+user.getPerson());
     	}
     	return user;
 	}

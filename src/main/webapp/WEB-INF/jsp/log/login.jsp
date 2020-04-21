@@ -21,6 +21,9 @@
             <div class="columns is-centered">
                 <div class="column is-one-quarter">
                   <form action="/log" method="POST">
+                  	  <c:if test = "${sessionScope.user.getConnectionError() == true}">
+         			  	<p class="help is-danger">Email ou mot de passe invalide</p>
+     			 	  </c:if>
                       <div class="field">
                           <p class="control has-icons-left has-icons-right">
                             <input class="input" type="email" placeholder="Email" name="email" required>
@@ -36,11 +39,6 @@
                               <i class="fas fa-lock"></i>
                             </span>
                           </p>
-                        </div>
-                        <div>
-	                        <c:if test = "${sessionScope.user.GetConnectionError() == true}">
-	         					<p class="has-text-danger">Email ou mot de passe invalide</p>
-	     			 		</c:if>
                         </div>
                         <div class="field is-grouped is-grouped-centered">
                           <p class="control">

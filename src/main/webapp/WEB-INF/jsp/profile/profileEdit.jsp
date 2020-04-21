@@ -24,18 +24,18 @@
                    
                        <form:form method="POST" modelAttribute="person">
 
-				            <form:errors path="*" cssClass="help is-danger" element="div" />
+				            <form:errors path="*" cssClass="subtitle has-text-danger" element="p" />
 							
 							<div class="field">
 							  <label class="label">Prenom</label>						  
 							  <form:input class="control" path="firstname" />
-				              <form:errors path="firstname" cssClass="help is-danger" element="label" />
+				              <form:errors path="firstname" cssClass="help is-danger" element="p" />
 							</div>
 							
 							<div class="field">
 							  <label class="label">Nom</label>						  
 							  <form:input class="control" path="name" />
-				              <form:errors path="name" cssClass="help is-danger" element="label" />
+				              <form:errors path="name" cssClass="help is-danger" element="p" />
 							</div>
 							
 							<div class="field">
@@ -43,31 +43,31 @@
 							  <form:select path="group.id" multiple="false" class="form-control">
 							        <form:options items="${groups}"/>
 							    </form:select>
-				              <form:errors path="group" cssClass="help is-danger" element="label" />
+				              <form:errors path="group" cssClass="help is-danger" element="p" />
 							</div>
 							
 							<div class="field">
 							  <label class="label">Date de naissance</label>						  
 							  <form:input type="date" class="control" path="birthdate"/>
-				              <form:errors path="birthdate" cssClass="help is-danger" element="label" />
+				              <form:errors path="birthdate" cssClass="help is-danger" element="p" />
 							</div>
 							
 							<div class="field">
 							  <label class="label">Email</label>						  
 							  <form:input class="control" path="email" />
-				              <form:errors path="email" cssClass="help is-danger" element="label" />
+				              <form:errors path="email" cssClass="help is-danger" element="p" />
 							</div>
 							
 							<div class="field">
 							  <label class="label">Site web</label>						  
 							  <form:input class="control" path="website" />
-				              <form:errors path="website" cssClass="help is-danger" element="label" />
+				              <form:errors path="website" cssClass="help is-danger" element="p" />
 							</div>
 							
 							<div class="field">
 							  <label class="label">Mot de passe</label>						  
 							  <form:input class="control" path="password" />
-				              <form:errors path="password" cssClass="help is-danger" element="label" />
+				              <form:errors path="password" cssClass="help is-danger" element="p" />
 							</div>
 																	
 				            <div class="field">

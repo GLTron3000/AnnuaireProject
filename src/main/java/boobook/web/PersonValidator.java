@@ -42,23 +42,23 @@ public class PersonValidator implements Validator {
                 "person.password");
 
         if(!person.getName().matches("[A-Z][a-z]+([-][A-Z]([a-z])+)?")) {
-        	errors.rejectValue("name", "person.name.format", "format du nom non respecté");
+        	errors.rejectValue("name", "person.name.format", "Format du nom non respecté : une Majuscule et des minuscules");
         }
         
        if(!person.getFirstname().matches("[A-Z][a-z]+([-][A-Z]([a-z])+)?")) {
-        	errors.rejectValue("firstname", "person.firstname.format", "format du prénom non respecté -> une Majuscule et des minuscules");
+        	errors.rejectValue("firstname", "person.firstname.format", "Format du prénom non respecté : une Majuscule et des minuscules");
         }
         
         if(!person.getEmail().matches("([a-z0-9])+([.]([a-z0-9])+)?@([a-z])+(([.]([a-z])+)?|([-]([a-z])+)?)+.([a-z]){2,}")) {
-        	errors.rejectValue("email","person.email.format", "email invalide");
+        	errors.rejectValue("email","person.email.format", "Email invalide");
         }
         
         if(!person.getWebsite().matches("([a-z0-9])+(([.]([a-z0-9])+)?|([-]([a-z0-9])+)?)+.([a-z]){2,}")) {
-        	errors.rejectValue("website","person.website.format", "website invalide");
+        	errors.rejectValue("website","person.website.format", "Site web invalide");
         }
         
-        if(!person.getPassword().matches("(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*-_=+])[a-zA-Z0-9!@#$%^&*-_=+](?=\\S+$).{8,15}")) {
-        	errors.rejectValue("password","person.password.format", "password invalide");
+        if(!person.getPassword().matches("(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*-_=+])[a-zA-Z0-9!@#$%^&*-_=+](?=\\S+$).{8,35}")) {
+        	errors.rejectValue("password","person.password.format", "Le mot de passe doit être entre 8 et 35 caractères contenant au moins une Majuscule, une minuscule et un caractère spécial");
         }
 
     }

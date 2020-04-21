@@ -84,4 +84,45 @@ public class TestPersonDao {
 		assertEquals(3, gs.size(), "Groups size incorect");
 	}
 	
+	@Test
+	public void testRemovePerson() {
+		
+	}
+		
+	@Test
+	public void testFindPersonByEmail() {
+		
+	}
+	
+
+	@Test
+	public void testAddGroup() {
+		
+	}
+	
+	@Test
+	public void testRemoveGroup() {
+		
+	}
+	
+	@Test
+	public void testUpdatePerson() {
+		
+	}
+	
+	@Test
+	public void testFindGroup() {
+		
+	}
+	
+	@Test
+	public void testFindGroupsByName() {
+		
+	}
+	
+	@Test
+	public void testFindPersonsByName() {
+		
+	}
+	
 }
