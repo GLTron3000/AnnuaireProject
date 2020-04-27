@@ -59,9 +59,9 @@ public class PersonDao implements IPersonDao {
 	
 	@Override
 	public Collection<Person> findAllPersonsByGroup(long groupId) {
-		String query = "SELECT p FROM Person p WHERE group.id = :group ORDER BY name ASC";
+		String query = "SELECT p FROM Person p WHERE currentGroup.id = :groupId ORDER BY name ASC";
 		TypedQuery<Person> q = em.createQuery(query, Person.class);
-		q.setParameter(0, groupId);
+		q.setParameter("groupId", groupId);
 		try {
 			return q.getResultList();
 		} catch (Exception e) {
@@ -128,7 +128,6 @@ public class PersonDao implements IPersonDao {
 	@Override
 	@Modifying
 	public void updatePerson(Person person){
-		System.err.println("[DAO] updated person p:"+person.getName());
 		em.merge(person);
 	}
 	

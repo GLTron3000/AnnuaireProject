@@ -29,10 +29,10 @@ public class SpringBusinessConfig {
      * Définition de la source de données
      */
     @Bean
-    public DataSource dataSource(//
-            @Value("${datasource.driverName}") String driverName, //
-            @Value("${datasource.url}") String url, //
-            @Value("${datasource.username}") String user, //
+    public DataSource dataSource(
+            @Value("${datasource.driverName}") String driverName,
+            @Value("${datasource.url}") String url,
+            @Value("${datasource.username}") String user,
             @Value("${datasource.password}") String password) {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(driverName);
@@ -47,8 +47,7 @@ public class SpringBusinessConfig {
      * choix d'hibernate. Cette configuration remplace le fichier persistence.xml
      */
     @Bean(name = "myData")
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory(//
-            @Autowired DataSource ds) {
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory(@Autowired DataSource ds) {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(ds);
         em.setPackagesToScan(new String[] { "boobook.model" });
@@ -83,7 +82,7 @@ public class SpringBusinessConfig {
     }
     
     /*set the properties*/
-    
+
     @Bean("messageSource")
 	public ResourceBundleMessageSource messageSource() {
 	    ResourceBundleMessageSource r = new ResourceBundleMessageSource();
