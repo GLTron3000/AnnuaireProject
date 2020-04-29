@@ -4,6 +4,8 @@
 
 <%@ include file="/WEB-INF/jsp/include.jsp"%>
 
+<c:url var="reset" value="/log/resetpassword" />
+
 <html>
 <head>
 	<%@ include file="/WEB-INF/jsp/head.jsp"%>
@@ -20,7 +22,7 @@
           <h1 class="title is-1">Entrez votre nouveau mot de passe</h1>
             <div class="columns is-centered">
                 <div class="column is-one-quarter">
-                  <form action="/log/resetpassword" method="POST">
+                  <form action="${reset }" method="POST">
                   	<input type="hidden" name="token" value="${param.token}">
                       <div class="field">
                           <p class="control has-icons-left has-icons-right">

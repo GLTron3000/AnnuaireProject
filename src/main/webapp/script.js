@@ -26,14 +26,14 @@ function selectCallback() {
 	const form = document.getElementById('searchForm')
 	
 	switch(selection) {
-		case 'group': form.action = '/groups/find'; break
-		case 'person': form.action = '/profiles/find'; break
+		case 'group': form.action = 'groups/find'; break
+		case 'person': form.action = 'profiles/find'; break
 	}
 	
 }
 
 
-// blagounette
+// fond ecran index
 var background
 const colorArray = ['4eb287', '42c621', 'c6c421', 'c68221', 'c62421', '21c6be', ' 2124c6', ' b021c6']
 var currentColor = '000000'

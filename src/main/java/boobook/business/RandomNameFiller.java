@@ -30,7 +30,7 @@ public class RandomNameFiller {
 	
 	@EventListener(ContextRefreshedEvent.class)
     public void onApplicationEvent(ContextRefreshedEvent event) {
-		//event.getApplicationContext().getBean(RandomNameFiller.class).fillDB(1000, 100);
+		event.getApplicationContext().getBean(RandomNameFiller.class).fillDB(10000, 1000);
 	}
 	
 	@Transactional

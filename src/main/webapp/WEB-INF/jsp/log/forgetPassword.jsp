@@ -4,6 +4,8 @@
 
 <%@ include file="/WEB-INF/jsp/include.jsp"%>
 
+<c:url var="forget" value="/log/forgetpassword" />
+
 <html>
 <head>
 	<%@ include file="/WEB-INF/jsp/head.jsp"%>
@@ -20,7 +22,7 @@
           <h1 class="title is-1">Mot de passe oublié ?</h1>
             <div class="columns is-centered">
                 <div class="column is-one-quarter">
-                  <form action="/log/forgetpassword" method="POST">
+                  <form action="${forget}" method="POST">
                       <div class="field">
                           <p class="control has-icons-left has-icons-right">
                             <input class="input" type="email" placeholder="Email" name="email" required>

@@ -41,7 +41,7 @@
 							<div class="field">
 							  <label class="label">Groupe</label>						  
 							  <form:select path="group.id" multiple="false" class="form-control">
-							        <form:options items="${groups}"/>
+							        <form:options items="${groupFormList}"/>
 							    </form:select>
 				              <form:errors path="group" cssClass="help is-danger" element="p" />
 							</div>

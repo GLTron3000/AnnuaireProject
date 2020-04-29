@@ -14,10 +14,12 @@ public class Starter extends SpringBootServletInitializer {
 
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+		System.err.println("STARTA");
 		return application.sources(Starter.class);
 	}
 	
 	public static void main(String[] args) {
+		System.err.println("STARTA 2");
 		SpringApplication.run(Starter.class, args);
 	}
 }

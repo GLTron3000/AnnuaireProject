@@ -35,7 +35,7 @@ public class DirectoryController {
 	ArrayList<Person> personCache;
 	ArrayList<Group> groupCache;
 		
-	@ModelAttribute("groups")
+	@ModelAttribute("groupFormList")
     public Map<Long, String> groups() {
 		Map<Long, String> groups = new LinkedHashMap<>();
 		manager.findAllGroup(null).forEach(group -> {
@@ -140,7 +140,7 @@ public class DirectoryController {
 			int firstIndex = part*pageSize;
 			int lastIndex = part*pageSize+pageSize > groups.size() ? groups.size() : part*pageSize+pageSize;
 					
-			return new ModelAndView("group/groupList", "groups", groups.subList(firstIndex, lastIndex));
+			return new ModelAndView("group/groupList", "groupList", groups.subList(firstIndex, lastIndex));
 		}
 	}
 	
@@ -148,7 +148,7 @@ public class DirectoryController {
 	public ModelAndView showGroupsFind(HttpSession session, @RequestParam("name")String name) {
 		User user = getUser(session);
 		final var result = manager.findGroupsByName(user, name);
-		return new ModelAndView("group/groupSearch", "groups", result);
+		return new ModelAndView("group/groupSearch", "groupList", result);
 	}
 			
 	private User getUser(HttpSession session) {

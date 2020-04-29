@@ -4,6 +4,8 @@
 
 <%@ include file="/WEB-INF/jsp/include.jsp"%>
 
+<c:url var="search" value="/profiles/find" />
+
 <html>
 <head>
 	<%@ include file="/WEB-INF/jsp/head.jsp"%>
@@ -21,7 +23,7 @@
             <h1 class="title is-1">Trouvez n'importe qui</h1>
             <h2 class="subtitle">Même s'il existe pas</h2>
             
-            <form action="/profiles/find" id="searchForm">
+            <form action="${search }" id="searchForm">
                 <div class="field has-addons">
                     <div class="control is-expanded">
                       <input class="input" type="text" placeholder="Trouver une personne ou un groupe" name="name">

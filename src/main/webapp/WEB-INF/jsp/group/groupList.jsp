@@ -33,7 +33,7 @@
         	<div class="container">
         		<h1 class="title is-1">Groupes:</h1>
 
-			<c:forEach items="${groups}" var="group">
+			<c:forEach items="${groupList}" var="group">
 				<div class="card">
                   <a href="${view}?id=${group.getId()}">
                     <div class="card-content">

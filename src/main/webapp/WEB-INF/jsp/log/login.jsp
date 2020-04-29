@@ -4,6 +4,9 @@
 
 <%@ include file="/WEB-INF/jsp/include.jsp"%>
 
+<c:url var="log" value="/log" />
+<c:url var="forget" value="/log/forgetpassword" />
+
 <html>
 <head>
 	<%@ include file="/WEB-INF/jsp/head.jsp"%>
@@ -20,7 +23,7 @@
           <h1 class="title is-1">Connexion</h1>
             <div class="columns is-centered">
                 <div class="column is-one-quarter">
-                  <form action="/log" method="POST">
+                  <form action="${log }" method="POST">
                   	  <c:if test = "${sessionScope.user.getConnectionError() == true}">
          			  	<p class="help is-danger">Email ou mot de passe invalide</p>
      			 	  </c:if>
@@ -46,7 +49,7 @@
                           </p>
                       </div>
                   </form>
-                  <a class="button is-text is-small" href="/log/forgetpassword">mot de passe oublié ?</a>
+                  <a class="button is-text is-small" href="${forget }">mot de passe oublié ?</a>
                   <hr>
                   <button class="button is-light" disabled>Créer un compte</button>
                 </div>

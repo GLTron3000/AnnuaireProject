@@ -4,6 +4,8 @@
 
 <%@ include file="/WEB-INF/jsp/include.jsp"%>
 
+<c:url var="edit" value="/profiles/edit" />
+
 <html>
 <head>
 	<%@ include file="/WEB-INF/jsp/head.jsp"%>
@@ -40,7 +42,7 @@
                        </p>
                        
                        <c:if test="${sessionScope.user.getPerson().getId().equals(person.getId())}">
-                       	<a class="button is-warning" href="/profiles/edit?id=${sessionScope.user.getPerson().getId()}">
+                       	<a class="button is-warning" href="${edit }?id=${sessionScope.user.getPerson().getId()}">
                        		<span class="icon"><i class="fas fa-edit"></i></span>
                        		<span>Editer le profile</span>
                        	</a>

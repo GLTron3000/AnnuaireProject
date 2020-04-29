@@ -20,9 +20,9 @@
         	    
  		<div class="hero-body">
         	<div class="container">
-        		<h1 class="title is-1"><c:out value="${groups.size()}" /> groupes trouvé:</h1>
+        		<h1 class="title is-1"><c:out value="${groupList.size()}" /> groupes trouvé:</h1>
 
-			<c:forEach items="${groups}" var="group">
+			<c:forEach items="${groupList}" var="group">
 				<div class="card">
                   <a href="${view}?id=${group.getId()}">
                     <div class="card-content">

@@ -2,10 +2,14 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>jee-annuaire</groupId>
-	<artifactId>jee-annuaire</artifactId>
+	<groupId>boobook</groupId>
+	<artifactId>annuaire</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
+	
+	<name>annuaire</name>
+    <description>Annuaire en ligne avec Spring Boot</description>
+    
 	<build>
 		<plugins>
 			<plugin>
@@ -36,6 +40,7 @@
 			     </includes>
 			</resource>
 		</resources>
+		<finalName>annuaire</finalName>
 	</build>
 
 	<properties>
@@ -43,6 +48,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>10</java.version>
 	</properties>
+	
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
@@ -102,6 +108,12 @@
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt</artifactId>
 			<version>0.9.1</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.junit.jupiter</groupId>
+		    <artifactId>junit-jupiter-api</artifactId>
+		    <version>5.7.0-M1</version>
+		    <scope>test</scope>
 		</dependency>
 	</dependencies>
 </project>
